@@ -5,7 +5,7 @@
 @endsection
 
 @section('style')
-  <link rel="stylesheet" href="{{asset('/styles/hotels/index.css')}}">
+  <link rel="stylesheet" href="{{asset('styles/hotels/index.css')}}">
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@
   <div class="hotels-container" id="hotelsContainer">
     @foreach ($hotels as $hotel)
         <div class="hotel-card">
-            <img src="{{asset('/images/' . $hotel->image)}}" alt="{{$hotel->name}}">
+            <img src="{{asset('images/hotel.h')}}" alt="{{$hotel->name}}">
             <div class="hotel-info">
                 <h3>{{$hotel->name}}</h3>
                 <p>Location: {{$hotel->location}}</p>

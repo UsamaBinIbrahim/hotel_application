@@ -10,9 +10,14 @@ class Hotel extends Model
         'name',
         'location',
         'description',
-        'image',
+        'main_image',
+        'images',
         'price_per_night',
         'total_rooms',
+    ];
+
+    protected $casts = [
+        'images' => 'array',
     ];
 
     protected static function booted(): void {
@@ -21,4 +26,11 @@ class Hotel extends Model
         });
     }
 
+    public function amenities() {
+        return $this->belongsToMany(Amenity::class);
+    }
+
+    public function booking() {
+        return $this->hasMany(Booking::class);
+    }
 }

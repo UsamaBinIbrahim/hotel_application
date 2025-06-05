@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class HotelResource extends Resource
 {
@@ -32,13 +33,21 @@ class HotelResource extends Resource
                 Forms\Components\TextInput::make('description')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('amenities')
+                    ->multiple()
+                    ->relationship('amenities', 'name')
+                    ->preload(),
                 Forms\Components\FileUpload::make('image')
+                    ->multiple()
                     ->image()
                     ->required()
                     ->directory('hotels')
-                    ->getUploadedFileNameUsing(function ($file) {
-                        return (string) str()->slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))
-                            . '-' . now()->timestamp . '.' . $file->getClientOriginalExtension();
+                    ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
+                        $timestamp = now()->format('Y_m_d_His'); // yyyy_mm_dd_hhmmss
+                        $filename = str()->slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+                        $extension = $file->getClientOriginalExtension();
+
+                        return "{$timestamp}-{$filename}.{$extension}";
                     })
                     ->deleteUploadedFileUsing(function ($record, $storage, $path) {
                         $storage->delete($path);
@@ -82,6 +91,9 @@ class HotelResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('amenities.name')
+                    ->searchable()
+                    ->badge(),
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('price_per_night')
                     ->numeric()

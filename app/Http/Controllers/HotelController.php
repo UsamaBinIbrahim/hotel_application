@@ -8,13 +8,13 @@ use App\Models\Hotel;
 class HotelController extends Controller
 {
     public function homepage() {
-        $hotels = Hotel::select('id', 'name', 'location', 'price_per_night', 'image')->take(3)->get();
+        $hotels = Hotel::select('id', 'name', 'location', 'price_per_night')->take(3)->get();
 
         return view('homepage', ['hotels' => $hotels]);
     }
 
     public function index() {
-        $hotels = Hotel::select('id', 'name', 'location', 'price_per_night', 'image')->get();
+        $hotels = Hotel::select('id', 'name', 'location', 'price_per_night')->get();
 
         return view('hotels.index', ['hotels' => $hotels]);
     }

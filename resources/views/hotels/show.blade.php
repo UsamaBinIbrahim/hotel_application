@@ -5,7 +5,7 @@
 @endsection
 
 @section('style')
-  <link rel="stylesheet" href="{{asset('/styles/hotels/show.css')}}">
+  <link rel="stylesheet" href="{{asset('styles/hotels/show.css')}}">
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
     <h2>Sunrise Resort</h2>
 
     <div class="hotel-details">
-      <img src="{{asset('/images/' . $hotel->image)}}" alt="Hotel Image" />
+      <img src="{{asset('images/hotel.h')}}" alt="Hotel Image" />
 
       <div class="hotel-info">
         <h3>About the Hotel</h3>
