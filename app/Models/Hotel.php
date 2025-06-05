@@ -13,6 +13,12 @@ class Hotel extends Model
         'image',
         'price_per_night',
         'total_rooms',
-        'available_rooms',
     ];
+
+    protected static function booted(): void {
+        static::creating(function ($hotel) {
+            $hotel->available_rooms = $hotel->total_rooms;
+        });
+    }
+
 }
