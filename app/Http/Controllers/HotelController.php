@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Hotel;
 
 class HotelController extends Controller
 {
     public function homepage() {
-        $hotels = Hotel::select('id', 'name', 'location', 'price_per_night')->take(3)->get();
-
+        $hotels = Hotel::select('id', 'name', 'location', 'price_per_night', 'main_image')->take(3)->get();
+        
         return view('homepage', ['hotels' => $hotels]);
     }
 

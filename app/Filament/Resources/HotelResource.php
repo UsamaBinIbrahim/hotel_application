@@ -13,12 +13,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class HotelResource extends Resource
 {
     protected static ?string $model = Hotel::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office';
 
     public static function form(Form $form): Form
     {
@@ -35,48 +36,67 @@ class HotelResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Select::make('amenities')
                     ->multiple()
+                    ->required()
                     ->relationship('amenities', 'name')
                     ->preload(),
-                Forms\Components\FileUpload::make('image')
-                    ->multiple()
+                Forms\Components\FileUpload::make('main_image')
                     ->image()
                     ->required()
-                    ->directory('hotels')
+                    ->directory('hotels/main_image')
                     ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
-                        $timestamp = now()->format('Y_m_d_His'); // yyyy_mm_dd_hhmmss
-                        $filename = str()->slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
-                        $extension = $file->getClientOriginalExtension();
-
-                        return "{$timestamp}-{$filename}.{$extension}";
+                        return now()->format('Y_m_d_His') . '-' // timestamp
+                            . str()->slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' // filename
+                            . $file->getClientOriginalExtension(); // extension
                     })
                     ->deleteUploadedFileUsing(function ($record, $storage, $path) {
                         $storage->delete($path);
                     }),
+                Forms\Components\FileUpload::make('images')
+                    ->multiple()
+                    ->image()
+                    ->required()
+                    ->maxFiles(3)
+                    ->directory('hotels/images')
+                    ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
+                        return now()->format('Y_m_d_His') . '-' // timestamp
+                            . str()->slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' // filename
+                            . $file->getClientOriginalExtension(); // extension
+                    })
+                    ->deleteUploadedFileUsing(function ($record, $storage, $path) {
+                        $storage->delete($path);
+                    })
+                    ->formatStateUsing(fn ($state) => is_array($state) ? $state : json_decode($state, true)),
                 Forms\Components\TextInput::make('price_per_night')
                     ->required()
+                    ->minValue(1)
                     ->numeric(),
                 Forms\Components\TextInput::make('total_rooms')
                     ->required()
+                    ->minValue(1)
                     ->numeric(),
                 Forms\Components\TextInput::make('available_rooms')
                     ->required()
                     ->numeric()
-                    ->hiddenOn('create', 'edit'),
+                    ->visible(),
                 Forms\Components\TextInput::make('max_guests')
                     ->required()
                     ->numeric()
+                    ->minValue(1)
                     ->default(4),
                 Forms\Components\TextInput::make('base_guest_count')
                     ->required()
                     ->numeric()
+                    ->minValue(1)
                     ->default(2),
                 Forms\Components\TextInput::make('extra_adult_fee')
                     ->required()
                     ->numeric()
+                    ->minValue(1)
                     ->default(20),
                 Forms\Components\TextInput::make('extra_child_fee')
                     ->required()
                     ->numeric()
+                    ->minValue(1)
                     ->default(10),
             ]);
     }
@@ -94,7 +114,15 @@ class HotelResource extends Resource
                 Tables\Columns\TextColumn::make('amenities.name')
                     ->searchable()
                     ->badge(),
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('main_image')
+                    ->disk('public') // important if stored in storage/app/public
+                    ->getStateUsing(fn ($record) => asset('storage/' . $record->main_image)) // Storage::disk()->url() failed here
+                    ->visibility('visible')
+                    ->size(60), // or ->square()
+                Tables\Columns\ViewColumn::make('images')
+                    ->label('Images')
+                    ->view('admin.components.hotel_images')
+                    ->wrapHeader(),
                 Tables\Columns\TextColumn::make('price_per_night')
                     ->numeric()
                     ->sortable(),
@@ -130,6 +158,7 @@ class HotelResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

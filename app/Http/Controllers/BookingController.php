@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
@@ -13,6 +14,11 @@ class BookingController extends Controller
     }
 
     public function store(Hotel $hotel, Request $request) {
+        // if($hotel->available_rooms <= 0) {
+        //     return to_route('hotels.index');  how to alert that the bookings failed
+        // }
+
+        $user = Auth::user();
         $validated = $request->validate([
             'full_name' => 'required',
             'email' => 'required|email',
@@ -29,7 +35,7 @@ class BookingController extends Controller
                              ->withInput();
         }
 
-        Booking::create([
+        $booking = Booking::create([
             'hotel_id' => $hotel->id,
             'user_id' => 1,
             'full_name' => $request->full_name,
@@ -40,5 +46,9 @@ class BookingController extends Controller
             'adults' => $request->adults,
             'children' => $request->children,
         ]);
+
+        if($booking != null) {
+            $booking->hotel->available_rooms -= 1;
+        }
     }
 }

@@ -35,9 +35,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Filament::serving(function () {
-        if (request()->routeIs('filament.auth.login') && request('secret') !== config('admin.secret')) {
-            abort(403, 'Forbidden');
-        }
+            if (request()->routeIs('filament.auth.login') && request('secret') !== config('admin.secret')) {
+                abort(403, 'Forbidden');
+            }
 
             Auth::shouldUse('admin');
         });

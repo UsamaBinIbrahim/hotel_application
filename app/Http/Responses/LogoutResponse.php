@@ -9,7 +9,7 @@ class LogoutResponse implements LogoutResponseContract
 {
     public function toResponse($request): RedirectResponse
     {
-        return redirect()->route('filament.admin.auth.login', [
+        return to_route('filament.admin.auth.login', [
             'secret' => config('admin.secret'),
         ]);
     }

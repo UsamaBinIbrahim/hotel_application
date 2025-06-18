@@ -9,7 +9,7 @@
 @endsection  
 
 @section('content')
-  <div class="hero">
+  <div class="hero" style="background: url({{ Storage::url('hero/hotel.h') }}) no-repeat center center/cover;">
     Discover top-rated hotels at the best prices
   </div>
 
@@ -18,7 +18,7 @@
       <a href="{{route('hotels.show', $hotel->id)}}" class="hotel-link">
         <div class="hotel">
           <div class="hotel-photo">
-            <img src="{{asset('images/hotel.h')}}" alt="{{$hotel->name}}">
+            <img src="{{Storage::url($hotel->main_image)}}" alt="{{$hotel->name}}">
           </div>
           <div class="hotel-info">
             <h3>{{$hotel->name}}</h3>
