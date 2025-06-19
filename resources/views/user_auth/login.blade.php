@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.auth')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{asset('/styles/auth/login.css')}}">
-</head>
+@section('title')
+    Login
+@endsection
 
-<body>
-  <div class="container">
-    <h2>Login</h2>
+@section('heading')
+    Login
+@endsection
+
+@section('form')
     <form method="POST" action="{{route('login.submit')}}">
         @csrf
         <input type="email" id="email" name="email" value="{{old('email')}}" placeholder="Email" autocomplete="email" required />
@@ -41,10 +39,7 @@
         </div>
         <button type="submit">Login</button>
         <div class="link">
-            <p>Don't have an account? <a href="">Register</a></p>
+            <p>Don't have an account? <a href="{{route('register')}}">Register</a></p>
         </div>
     </form>
-  </div>
-</body>
-
-</html>
+@endsection
