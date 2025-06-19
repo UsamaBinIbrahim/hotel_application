@@ -9,7 +9,7 @@
 @endsection  
 
 @section('content')
-  <div class="hero" style="background: url({{ Storage::url('hero/hotel.h') }}) no-repeat center center/cover;">
+  <div class="hero" style="background: url({{ asset('/storage/hero/hotel.h') }}) no-repeat center center/cover;">
     Discover top-rated hotels at the best prices
   </div>
 

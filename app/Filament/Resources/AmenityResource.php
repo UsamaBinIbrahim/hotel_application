@@ -19,6 +19,8 @@ class AmenityResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-wifi';
 
+    protected static ?string $modelLabel = 'Hotel Amenities';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -49,6 +51,7 @@ class AmenityResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
