@@ -37,12 +37,12 @@ nav a:hover {
     background-color: black;
     color: white;
 }
-nav a[href="login.html"] {
+.login-btn {
     border: 0;
     color: black;
     background-color: white;
 }
-nav a[href="login.html"]:hover {
+.login-btn:hover {
     border: 0;
     color: white;
     background-color: black;

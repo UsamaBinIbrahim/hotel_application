@@ -9,7 +9,7 @@
 @endsection
 
 @section('form')
-    <form method="POST" action="{{route('register.submit')}}">
+    <form method="POST" action="{{route('register')}}">
         @csrf
         <input type="text" id="name" name="name" value="{{old('name')}}" placeholder="Name" required />
         <div class="errors">

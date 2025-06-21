@@ -2,8 +2,14 @@
 
 namespace App\Providers;
 
+use App\Http\Responses\AuthRedirectResponse;
+use Laravel\Fortify\Contracts\LoginResponse;
+use Laravel\Fortify\Contracts\RegisterResponse;
+use App\Http\Responses\LoginResponse as CustomLoginResponse;
+use App\Http\Responses\RegisterResponse as CustomRegisterResponse;
 use App\Http\Responses\LogoutResponse;
-use Filament\Http\Responses\Auth\Contracts\LogoutResponse as LogoutResponseContract;
+use Laravel\Fortify\Contracts\LogoutResponse as FortifyLogoutResponse;
+use Filament\Http\Responses\Auth\Contracts\LogoutResponse as FilamentLogoutResponse;
 use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +22,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(
-            LogoutResponseContract::class,
-            LogoutResponse::class
-        );
+        $this->app->singleton(FilamentLogoutResponse::class, LogoutResponse::class);
+        
+        $this->app->singleton(FortifyLogoutResponse::class, LogoutResponse::class);
+        $this->app->singleton(AuthRedirectResponse::class, fn () => new AuthRedirectResponse());
+        $this->app->singleton(LoginResponse::class, fn ($app) => new CustomLoginResponse($app->make(AuthRedirectResponse::class)));
+        $this->app->singleton(RegisterResponse::class, fn ($app) => new CustomRegisterResponse($app->make(AuthRedirectResponse::class)));
     }
 
     /**

@@ -9,7 +9,7 @@
 @endsection
 
 @section('form')
-    <form method="POST" action="{{route('login.submit')}}">
+    <form method="POST" action="{{route('login')}}">
         @csrf
         <input type="email" id="email" name="email" value="{{old('email')}}" placeholder="Email" autocomplete="email" required />
         <div class="errors">

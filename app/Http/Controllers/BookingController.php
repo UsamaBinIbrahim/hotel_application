@@ -18,7 +18,6 @@ class BookingController extends Controller
         //     return to_route('hotels.index');  how to alert that the bookings failed
         // }
 
-        $user = Auth::user();
         $validated = $request->validate([
             'full_name' => 'required',
             'email' => 'required|email',
@@ -31,13 +30,13 @@ class BookingController extends Controller
         
         if($validated['adults'] + $validated['children'] > $hotel->max_guests) {
             return redirect()->back()
-                             ->withErrors(["guests_sum" => "The total number of guests in {$hotel->name} hotel must not exceed {$hotel->max_guests}"])
-                             ->withInput();
+                            ->withInput()
+                            ->withErrors(["guests_sum" => "The total number of guests in {$hotel->name} hotel must not exceed {$hotel->max_guests}"]);
         }
-
+        
         $booking = Booking::create([
             'hotel_id' => $hotel->id,
-            'user_id' => 1,
+            'user_id' => Auth::user()->id,
             'full_name' => $request->full_name,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
