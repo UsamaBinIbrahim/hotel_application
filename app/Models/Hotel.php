@@ -26,16 +26,14 @@ class Hotel extends Model
             $hotel->available_rooms = $hotel->total_rooms;
         });
 
-        self::deleted(function ($hotel) {
-            if(is_array($hotel->images)) {
-                foreach($hotel->images as $imagePath) {
-                    Storage::disk('public')->delete($imagePath);
-                }
-            }
+        static::updating(function ($hotel) {
+            self::updateImages($hotel);
+            self::updateMainImage($hotel);
+        });
 
-            if($hotel->main_image) {
-                Storage::disk('public')->delete($hotel->main_image);
-            }
+        static::deleted(function ($hotel) {
+            self::deleteImages($hotel);
+            self::deleteMainImage($hotel);
         });
     }
 
@@ -45,5 +43,39 @@ class Hotel extends Model
 
     public function booking() {
         return $this->hasMany(Booking::class);
+    }
+
+    private static function updateImages($hotel) {
+            $originalImages = $hotel->getOriginal('images') ?? [];
+            $originalImages = is_array($originalImages) ? $originalImages : json_decode($originalImages, true); // getOriginal() might return a json
+            $currentImages = $hotel->images ?? [];
+            $removedImages = array_diff($originalImages, $currentImages);
+
+            foreach ($removedImages as $imagePath) {
+                Storage::disk('public')->delete($imagePath);
+            }
+    }
+
+    private static function updateMainImage($hotel) {
+        $originalMain = $hotel->getOriginal('main_image') ?: null;
+        $currentMain = $hotel->main_image ?: null;
+
+        if ($originalMain && $originalMain !== $currentMain) {
+            Storage::disk('public')->delete($originalMain);
+        }
+    }
+
+    private static function deleteImages($hotel) {
+        if(is_array($hotel->images)) {
+            foreach($hotel->images as $imagePath) {
+                Storage::disk('public')->delete($imagePath);
+            }
+        }
+    }
+
+    private static function deleteMainImage($hotel) {
+        if($hotel->main_image) {
+            Storage::disk('public')->delete($hotel->main_image);
+        }
     }
 }
