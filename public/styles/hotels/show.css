@@ -84,7 +84,7 @@ body {
 
 .hotel-info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 1rem;
     flex: 1 1 55%;
 }    
@@ -188,7 +188,7 @@ body {
     }
 }
 
-@media (min-width: 769px) and (max-width: 992px) {
+@media (max-width: 992px) {
     .hotel-container {
         max-width: auto;
         margin: 20px auto;
@@ -196,8 +196,12 @@ body {
     }
 }
 
-@media (max-width: 800px) {
-  .info-card.description {
-    grid-column: 1 / -1;
-  }
+@media (min-width: 545px) and (max-width: 800px) {
+    .hotel-info-grid {
+        grid-template-columns: auto auto;
+    }
+
+    .info-card.description {
+        grid-column: 1 / -1;
+    }
 }

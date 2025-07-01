@@ -37,13 +37,13 @@ class AppServiceProvider extends ServiceProvider
     {
         Route::matched(function () {
             // Block the login page if secret is missing or incorrect
-            if (request()->is('admin/login') && request('secret') !== config('admin.secret')) {
+            if (request()->is(Filament::getPanel('admin')->getPath() . '/login') && request('secret') !== config('admin.secret')) {
                 abort(403, 'Forbidden');
             }
         });
 
         Filament::serving(function () {
-            if (request()->routeIs('filament.auth.login') && request('secret') !== config('admin.secret')) {
+            if (request()->is(Filament::getPanel('admin')->getPath() . '/login') && request('secret') !== config('admin.secret')) {
                 abort(403, 'Forbidden');
             }
 

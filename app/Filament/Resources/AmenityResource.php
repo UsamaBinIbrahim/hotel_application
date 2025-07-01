@@ -6,6 +6,7 @@ use App\Filament\Resources\AmenityResource\Pages;
 use App\Filament\Resources\AmenityResource\RelationManagers;
 use App\Models\Amenity;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -25,9 +26,11 @@ class AmenityResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
+                Section::make()->schema([
+                    Forms\Components\TextInput::make('name')
+                        ->required()
+                        ->maxLength(255),
+                ])->columnSpan(1)
             ]);
     }
 
@@ -57,7 +60,8 @@ class AmenityResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->recordUrl(null);
     }
 
     public static function getRelations(): array

@@ -16,12 +16,11 @@
     <nav>
       <a href="{{route('homepage')}}">Home</a>
       <a href="{{route('hotels.index')}}">Browse Hotels</a>
-      <a href="{{route('login')}}" class="login-btn">Login</a>
-      <form action="{{route('logout')}}" method="post">
-        @csrf
-        <button type="submit">logout</button>
-      </form>
-      {{-- <a href="{{route('logout')}}" class="login-btn">Logout</a> --}}
+      @if (Auth::check())
+        <a href="{{route('profile.index')}}" class="login-btn">Profile</a>
+      @else
+        <a href="{{route('login')}}" class="login-btn">Login</a>
+      @endif
     </nav>
   </header>
 
