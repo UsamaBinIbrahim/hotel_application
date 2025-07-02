@@ -13,6 +13,7 @@ use Filament\Http\Responses\Auth\Contracts\LogoutResponse as FilamentLogoutRespo
 use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 class AppServiceProvider extends ServiceProvider

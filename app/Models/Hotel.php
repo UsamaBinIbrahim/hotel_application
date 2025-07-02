@@ -21,6 +21,18 @@ class Hotel extends Model
         'images' => 'array',
     ];
 
+    public function amenities() {
+        return $this->belongsToMany(Amenity::class, 'amenity_hotel');
+    }
+
+    public function booking() {
+        return $this->hasMany(Booking::class);
+    }
+
+    public function bookedRooms() {
+        return $this->hasMany(BookedRoom::class);
+    }
+
     protected static function booted(): void {
         static::creating(function ($hotel) {
             $hotel->available_rooms = $hotel->total_rooms;
@@ -37,23 +49,15 @@ class Hotel extends Model
         });
     }
 
-    public function amenities() {
-        return $this->belongsToMany(Amenity::class, 'amenity_hotel');
-    }
-
-    public function booking() {
-        return $this->hasMany(Booking::class);
-    }
-
     private static function updateImages($hotel) {
-            $originalImages = $hotel->getOriginal('images') ?? [];
-            $originalImages = is_array($originalImages) ? $originalImages : json_decode($originalImages, true); // getOriginal() might return a json
-            $currentImages = $hotel->images ?? [];
-            $removedImages = array_diff($originalImages, $currentImages);
+        $originalImages = $hotel->getOriginal('images') ?? [];
+        $originalImages = is_array($originalImages) ? $originalImages : json_decode($originalImages, true); // getOriginal() might return a json
+        $currentImages = $hotel->images ?? [];
+        $removedImages = array_diff($originalImages, $currentImages);
 
-            foreach ($removedImages as $imagePath) {
-                Storage::disk('public')->delete($imagePath);
-            }
+        foreach ($removedImages as $imagePath) {
+            Storage::disk('public')->delete($imagePath);
+        }
     }
 
     private static function updateMainImage($hotel) {

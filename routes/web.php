@@ -17,6 +17,7 @@ Route::middleware('auth')->group(function() {
     
     Route::get('/hotels/{hotel}/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
     Route::post('/hotels/{hotel}/bookings/store', [BookingController::class, 'store'])->name('bookings.store');
-    Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index'); // BookingController
-    Route::get('/bookings/show', fn () => view('bookings.show'))->name('bookings.show'); // BookingController
+    Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
+    Route::get('/bookings/{booking}/show', [BookingController::class, 'show'])->name('bookings.show');
+    Route::delete('/bookings/{booking}/destroy', [BookingController::class, 'destroy'])->name('bookings.destroy');
 });

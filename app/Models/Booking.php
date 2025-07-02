@@ -12,6 +12,7 @@ class Booking extends Model
         'full_name',
         'email',
         'phone_number',
+        'total_price',
         'check_in_date',
         'check_out_date',
         'adults',
