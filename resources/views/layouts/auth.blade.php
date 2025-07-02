@@ -11,7 +11,6 @@
 <body>
   <div class="container">
     <h2> @yield('heading') </h2>
-
     @yield('form')
   </div>
 </body>

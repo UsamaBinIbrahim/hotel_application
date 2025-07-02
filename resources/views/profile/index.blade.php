@@ -6,11 +6,19 @@
 
 @section('style')  
     <link rel="stylesheet" href="{{asset('styles/profile/index.css')}}" />
-    <script src="{{asset('scripts/lucide.js')}}"></script>
 @endsection  
 
 @section('content')
   <div class="main-container">
+    <div class="logout-bar">
+      <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="logout-btn">
+          <i data-lucide="log-out"></i> Logout
+        </button>
+      </form>
+    </div>
+    
     <!-- Header -->
     <div class="header">
       <h1>Welcome back, John! 👋</h1>
@@ -45,7 +53,7 @@
               <div class="green">In Progress</div>
             </div>
           </div>
-          <a href="#" class="button blue full"><i data-lucide="eye"></i>View All Bookings</a>
+          <a href="{{route('bookings.index')}}" class="button blue full"><i data-lucide="eye"></i>View All Bookings</a>
         </div>
       </div>
 
@@ -67,7 +75,7 @@
             <p>Member Since</p>
             <strong>January 2024</strong>
           </div>
-          <a href="#" class="button green outline full"><i data-lucide="edit"></i>Edit Profile</a>
+          <a href="{{route('profile.edit')}}" class="button green outline full"><i data-lucide="edit"></i>Edit Profile</a>
           <a href="#" class="button gray outline full"><i data-lucide="lock"></i>Change Password</a>
         </div>
       </div>
@@ -104,7 +112,7 @@
             </div>
           </div>
           <div class="shown">3 of 12 favorites shown</div>
-          <a href="#" class="button red outline full"><i data-lucide="heart"></i>View All Favorites</a>
+          <a href="{{route('favorites.index')}}" class="button red outline full"><i data-lucide="heart"></i>View All Favorites</a>
         </div>
       </div>
     </div>

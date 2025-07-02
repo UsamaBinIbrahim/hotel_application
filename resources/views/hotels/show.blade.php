@@ -9,6 +9,20 @@
 @endsection
 
 @section('content')
+  <div style="max-width: 1200px; margin: 1.5rem auto 0; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+  <a href="{{ request('back', route('hotels.index')) }}" class="back-button" style="display: flex; align-items: center; gap: 0.5rem;">
+    <i data-lucide="arrow-left"></i> Back
+  </a>
+
+  <form method="POST" action="#">
+    @csrf
+    <button type="button" class="add-fav-btn">
+      <i data-lucide="heart"></i> Add to Favorites
+    </button>
+  </form>
+</div>
+
+
   <div class="images-container">
     <div class="slider-wrapper">
       <div class="slider">
@@ -23,6 +37,7 @@
       </div>
     </div>
   </div>
+  
   <div class="hotel-container">
     <h2>{{$hotel->name}}</h2>
     <div class="flex-container">
@@ -45,7 +60,7 @@
         </div>
       </div>
 
-      <button type="button" class="book-now" onclick="window.location.href='{{route('booking.create', $hotel->id)}}'">
+      <button type="button" class="book-now" onclick="window.location.href='{{route('bookings.create', $hotel->id)}}'">
           Book Now for ${{$hotel->price_per_night}}
       </button>
     </div>
@@ -56,4 +71,8 @@
         <p>“Highly recommend this resort for anyone visiting Beirut. Great amenities!” - Jane Smith</p>
     </div>
   </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
 @endsection

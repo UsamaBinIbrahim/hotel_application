@@ -1,0 +1,108 @@
+/* profile/edit.css */
+body {
+  background: linear-gradient(to bottom right, #f8fafc, #eff6ff);
+  font-family: 'Inter', sans-serif;
+  color: #1f2937;
+}
+
+.edit-profile-container {
+  max-width: 640px;
+  margin: 3rem auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.edit-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.edit-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #2563eb, #4f46e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.edit-header p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #2563eb;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.button.green {
+  background: linear-gradient(to right, #10b981, #059669);
+  color: white;
+  border: none;
+}
+
+.button.gray.outline {
+  border: 2px solid #cbd5e1;
+  color: #334155;
+  background-color: transparent;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 500px) {
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .button {
+    width: 100%;
+    justify-content: center;
+  }
+}

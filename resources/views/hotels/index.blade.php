@@ -5,10 +5,16 @@
 @endsection
 
 @section('style')
+  <link rel="stylesheet" href="{{ asset('styles/profile/index.css') }}">
   <link rel="stylesheet" href="{{asset('styles/hotels/index.css')}}">
 @endsection
 
 @section('content')
+  <div class="header">
+    <h1>Browse Hotels 🏨</h1>
+    <p>Find your next destination and explore top-rated stays around the world</p>
+  </div>
+  
   <div class="search-bar">
     <input type="text" id="searchInput" placeholder="Search by location or name..." />
     <button onclick="filterHotels()">Search</button>
@@ -20,41 +26,25 @@
             <img src="{{asset('images/hotel.h')}}" alt="{{$hotel->name}}">
             <div class="hotel-info">
                 <h3>{{$hotel->name}}</h3>
-                <p>Location: {{$hotel->location}}</p>
-                <p>Price: <span>{{$hotel->price_per_night}}/night</span></p>
-                <button onclick="window.location.href='{{route('hotels.show', $hotel->id)}}'">View Details</button>
+                <p><i data-lucide="map-pin"></i> {{$hotel->location}}</p>
+                <p><i data-lucide="circle-dollar-sign"></i> <span>${{$hotel->price_per_night}}/night</span></p>
+                <button onclick="window.location.href='{{route('hotels.show', ['hotel' => $hotel->id, 'back' => url()->current()])}}'">
+                  <i data-lucide="eye"></i> View Details
+                </button>
             </div>
         </div>
     @endforeach
   </div>
 
   <script>
-    // function renderHotels(hotelList) {
-    //   const container = document.getElementById('hotelsContainer');
-    //   container.innerHTML = '';
-    //   hotelList.forEach(hotel => {
-    //     const card = document.createElement('div');
-    //     card.className = 'hotel-card';
-    //     card.innerHTML = `
-    //       <img src="${hotel.image}" alt="${hotel.name}" />
-    //       <div class="hotel-info">
-    //         <h3>${hotel.name}</h3>
-    //         <p>Location: ${hotel.location}</p>
-    //         <p>Price: $${hotel.price}/night</p>
-    //         <button onclick="viewDetails('${hotel.name}')">View Details</button>
-    //       </div>
-    //     `;
-    //     container.appendChild(card);
-    //   });
+    lucide.createIcons();
+    // function filterHotels() {
+    //   const query = document.getElementById('searchInput').value.toLowerCase();
+    //   const filtered = hotels.filter(h =>
+    //     h.name.toLowerCase().includes(query) || h.location.toLowerCase().includes(query)
+    //   );
+    //   renderHotels(filtered);
     // }
-
-    function filterHotels() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      const filtered = hotels.filter(h =>
-        h.name.toLowerCase().includes(query) || h.location.toLowerCase().includes(query)
-      );
-      renderHotels(filtered);
-    }
 
     // renderHotels(hotels);
   </script> 

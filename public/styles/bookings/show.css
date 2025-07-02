@@ -1,0 +1,128 @@
+.booking-container {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.booking-header {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.booking-header img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.booking-header .overlay {
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: white;
+  padding: 1.5rem;
+}
+
+.booking-header .overlay h1 {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.booking-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.info-section {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.info-section h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.info-pair {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  color: #374151;
+}
+
+.status {
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  text-transform: capitalize;
+}
+
+.status.completed {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.status.upcoming {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.status.in-progress {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.action {
+  text-align: center;
+}
+
+.button.gray.full {
+  background: #f3f4f6;
+  color: #374151;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.button.gray.full:hover {
+  background: #e5e7eb;
+  color: #1f2937;
+}
+
+.button.red.full {
+  background: linear-gradient(to right, #dc2626, #b91c1c);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.button.red.full:hover {
+  background: linear-gradient(to right, #b91c1c, #7f1d1d);
+}

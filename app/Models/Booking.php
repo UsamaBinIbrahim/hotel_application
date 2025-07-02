@@ -18,6 +18,10 @@ class Booking extends Model
         'children',
     ];
 
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
     public function hotel() {
         return $this->belongsTo(Hotel::class);
     }

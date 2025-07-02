@@ -23,7 +23,7 @@
           <div class="hotel-info">
             <h3>{{$hotel->name}}</h3>
             <p>{{$hotel->location}}</p>
-            <p>Price: <span>{{$hotel->price_per_night}}/night</span></p>
+            <p>Price: <span>${{$hotel->price_per_night}}/night</span></p>
           </div>
         </div>
       </a>
@@ -44,7 +44,7 @@
     </div>
     <div class="feature">
       <h3>Verified Reviews</h3>
-      <p>Read genuine reviews from other travelers before booking.</p>
+      <p>Read genuine reviews from other travelers before bookings.</p>
     </div>
   </section>
 @endsection

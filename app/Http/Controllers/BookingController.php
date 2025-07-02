@@ -9,8 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
+    public function index() {
+        $bookings = Auth::user()->bookings;
+        
+        return view('bookings.index', ['bookings' => $bookings]);
+    }
+
     public function create(Hotel $hotel) {
-        return view('booking.create', ['hotel' => $hotel]);
+        return view('bookings.create', ['hotel' => $hotel]);
     }
 
     public function store(Hotel $hotel, Request $request) {
@@ -33,7 +39,9 @@ class BookingController extends Controller
                             ->withInput()
                             ->withErrors(["guests_sum" => "The total number of guests in {$hotel->name} hotel must not exceed {$hotel->max_guests}"]);
         }
-        
+
+        // validate that check in date is before check out date
+        // add total_cost
         $booking = Booking::create([
             'hotel_id' => $hotel->id,
             'user_id' => Auth::user()->id,
@@ -49,5 +57,7 @@ class BookingController extends Controller
         if($booking != null) {
             $booking->hotel->available_rooms -= 1;
         }
+
+        return to_route('bookings.index');
     }
 }
