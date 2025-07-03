@@ -18,7 +18,7 @@
       <a href="{{route('hotels.show', $hotel->id)}}" class="hotel-link">
         <div class="hotel">
           <div class="hotel-photo">
-            <img src="{{Storage::url($hotel->main_image)}}" alt="{{$hotel->name}}">
+            <img src="{{asset('storage/' . $hotel->main_image)}}" alt="{{$hotel->name}}">
           </div>
           <div class="hotel-info">
             <h3>{{$hotel->name}}</h3>

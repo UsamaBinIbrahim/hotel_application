@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('hotels', function (Blueprint $table) {
+            $table->dropColumn('available_rooms');
+        });
     }
 
     /**
@@ -19,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('hotels', function (Blueprint $table) {
+            $table->integer('available_rooms')->after('total_rooms');
+        });
     }
 };

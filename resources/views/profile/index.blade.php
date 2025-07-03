@@ -131,8 +131,12 @@
       </div>
     </div>
   </div>
+@endsection
 
+@section('scripts')
   <script>
-    lucide.createIcons();
+    $(document).ready(function() {
+      lucide.createIcons();
+    });
   </script>
 @endsection

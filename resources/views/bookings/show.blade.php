@@ -30,21 +30,27 @@
     </div>
 
     <div class="action">
-        <a href="{{ route('bookings.index') }}" class="button gray full">
-          <i data-lucide="arrow-left"></i> Go Back
-        </a>
-      <form method="POST" action="{{route('bookings.destroy', $booking->id)}}">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="button red full">
-          <i data-lucide="trash-2"></i> Delete Booking
-        </button>
-      </form>
+      <a href="{{ route('bookings.index') }}" class="button gray full">
+        <i data-lucide="arrow-left"></i> Go Back
+      </a>
+      @if ($booking->status == 'upcoming' || $booking->status == 'completed')
+        <form method="POST" action="{{route('bookings.destroy', $booking->id)}}">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="button red full">
+            <i data-lucide="trash-2"></i> {{$booking->status == 'completed'? 'Delete': 'Cancel'}} Booking
+          </button>
+        </form>
+      @endif
     </div>
   </div>
 </div>
+@endsection
 
-<script>
-  lucide.createIcons();
-</script>
+@section('scripts')
+  <script>
+    $(document).ready(function() {
+      lucide.createIcons();
+    });
+  </script>
 @endsection

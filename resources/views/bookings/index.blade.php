@@ -34,8 +34,12 @@
     @endforeach
   </div>
 </div>
+@endsection
 
-<script>
-  lucide.createIcons();
-</script>
+@section('scripts')
+  <script>
+    $(document).ready(function() {
+      lucide.createIcons();
+    });
+  </script>
 @endsection

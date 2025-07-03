@@ -15,12 +15,10 @@
   </a>
 
   @php $is_favorite = auth()->user()->favoriteHotels->contains($hotel->id) @endphp
-  <form method="POST" action="{{route('favorites.toggle', $hotel->id)}}">
-    @csrf
-    <button type="submit" class="{{$is_favorite? 'fav-btn': 'unfav-btn'}}">
-      <i data-lucide="{{$is_favorite? 'heart': 'heart-off'}}"></i>
-    </button>
-  </form>
+  {{-- <button type="button" onclick="toggle({{$hotel->id}})" id="toggle-btn" class="{{$is_favorite? 'fav-btn': 'unfav-btn'}}"> --}}
+  <button type="button" id="toggle-btn" data-hotel-id="{{$hotel->id}}" class="{{$is_favorite? 'fav-btn': 'unfav-btn'}}">
+    <i id="toggle-data-lucide" data-lucide="{{$is_favorite? 'heart': 'heart-off'}}"></i>
+  </button>
 </div>
 
 
@@ -37,16 +35,6 @@
           <a href="#slide-{{ $loop->iteration }}"></a>
         @endforeach
       </div>
-      {{-- <div class="slider">
-        <img id="slide-1" src="{{asset('images/hotel.h')}}" alt="Hotel Image" />
-        <img id="slide-2" src="{{asset('images/hotel.h')}}" alt="Hotel Image" />
-        <img id="slide-3" src="{{asset('images/hotel.h')}}" alt="Hotel Image" />
-      </div>
-      <div class="slider-nav">
-        <a href="#slide-1"></a>
-        <a href="#slide-2"></a>
-        <a href="#slide-3"></a>
-      </div> --}}
     </div>
   </div>
   
@@ -83,8 +71,31 @@
         <p>“Highly recommend this resort for anyone visiting Beirut. Great amenities!” - Jane Smith</p>
     </div>
   </div>
+@endsection
 
+@section('scripts')
   <script>
-    lucide.createIcons();
+    $(document).ready(function() {
+      lucide.createIcons();
+
+      $(document).on('click', '#toggle-btn', function(e) {
+        e.preventDefault();
+        const url = '{{route('favorites.toggle', ':hotelId')}}'.replace(':hotelId', $(this).data('hotel-id'));
+        $.ajax({
+          url: url,
+          method: 'POST',
+          dataType: 'json',
+          success: function(response) {
+            $('#toggle-btn').attr('class', response.class);
+            $('#toggle-data-lucide').attr('data-lucide', response.data_lucide);
+            lucide.createIcons();
+            $('#toggle-btn').removeAttr('disabled');
+          },
+          error: function(error) {
+            console.log(error);
+          }
+        });
+      });
+    });
   </script>
 @endsection

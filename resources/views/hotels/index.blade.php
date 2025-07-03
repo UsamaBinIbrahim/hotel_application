@@ -35,17 +35,12 @@
         </div>
     @endforeach
   </div>
+@endsection
 
+@section('scripts')
   <script>
-    lucide.createIcons();
-    // function filterHotels() {
-    //   const query = document.getElementById('searchInput').value.toLowerCase();
-    //   const filtered = hotels.filter(h =>
-    //     h.name.toLowerCase().includes(query) || h.location.toLowerCase().includes(query)
-    //   );
-    //   renderHotels(filtered);
-    // }
-
-    // renderHotels(hotels);
-  </script> 
+    $(document).ready(function() {
+      lucide.createIcons();
+    });
+  </script>
 @endsection

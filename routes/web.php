@@ -14,10 +14,9 @@ Route::middleware('auth')->group(function() {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
-    // favorite management standalone
-    Route::post('/hotels/{hotel}/favorite', [FavoriteHotelController::class, 'toggle'])->name('favorites.toggle');
-    // favorite route tied to hotel
+    Route::post('/favorties/{hotel}', [FavoriteHotelController::class, 'toggle'])->name('favorites.toggle');
     Route::get('/favorites', [FavoriteHotelController::class, 'index'])->name('favorites.index');
+    Route::delete('/favorites/{hotel}', [FavoriteHotelController::class, 'destroy'])->name('favorites.destroy');
     
     // booking routes tied to hotel
     Route::get('/hotels/{hotel}/bookings/create', [BookingController::class, 'create'])->name('bookings.create');

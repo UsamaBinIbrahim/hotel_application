@@ -20,6 +20,25 @@ class BookingController extends Controller
     }
 
     public function destroy(Booking $booking) {
+        $check_in = Carbon::parse($booking->check_in_date);
+        $check_out = Carbon::parse($booking->check_out_date);
+        for($date = $check_in->copy(); $date->lt($check_out); $date->addDay()) {
+            $booked_room = BookedRoom::where([
+                'hotel_id' => $booking->hotel_id,
+                'date' => $date->toDateString(),
+            ])->first();
+
+            if(!$booked_room) {
+                continue;
+            }
+
+            $booked_room->rooms_booked -= 1;
+            if($booked_room->rooms_booked <= 0) {
+                $booked_room->delete();
+            } else {
+                $booked_room->save();
+            }
+        }
         $booking->delete();
         return to_route('bookings.index');
     }
@@ -95,12 +114,12 @@ class BookingController extends Controller
         $carbon_check_in = Carbon::parse($check_in);
         $carbon_check_out = Carbon::parse($check_out);
         for ($date = $carbon_check_in->copy(); $date->lt($carbon_check_out); $date->addDay()) {
-            $bookedRoom = BookedRoom::where(['hotel_id'=> $hotel->id,
-                    'date' => $date->toDateString()
-                ])
-                ->first();
+            $booked_room = BookedRoom::where([
+                'hotel_id'=> $hotel->id,
+                'date' => $date->toDateString()
+            ])->first();
 
-            if ($bookedRoom && $bookedRoom->rooms_booked >= $hotel->total_rooms) {
+            if ($booked_room && $booked_room->rooms_booked >= $hotel->total_rooms) {
                 return $date;
             }
         }
@@ -131,12 +150,12 @@ class BookingController extends Controller
         $carbon_check_in = Carbon::parse($check_in);
         $carbon_check_out = Carbon::parse($check_out);
         for ($date = $carbon_check_in->copy(); $date->lt($carbon_check_out); $date->addDay()) {
-            $bookedRoom = BookedRoom::firstOrNew([
+            $booked_room = BookedRoom::firstOrNew([
                 'hotel_id' => $hotel->id,
                 'date' => $date->toDateString(),
             ]);
-            $bookedRoom->rooms_booked += 1;
-            $bookedRoom->save();
+            $booked_room->rooms_booked += 1;
+            $booked_room->save();
         }
     }
 

@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title')</title>
   <link rel="stylesheet" href="{{asset('styles/layouts/app.css')}}">
-  <script src="{{asset('scripts/lucide.js')}}"></script>
-  <script src="https://unpkg.com/lucide@0.525.0/dist/umd/lucide.min.js"></script>
   @yield('style')
 </head>
 <body>
@@ -38,5 +37,18 @@
       <a href="{{route('login')}}" class="footer-link">&cir; Login</a>
       @endif
   </footer>
+  
+  <script src="{{asset('scripts/lucide.js')}}"></script>
+  {{-- <script src="https://unpkg.com/lucide@0.525.0/dist/umd/lucide.min.js"></script> --}}
+  <script src="{{asset('scripts/jquery.js')}}"></script>
+  {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> --}}
+  <script>
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+  </script>
+  @yield('scripts')
 </body>
 </html>
