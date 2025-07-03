@@ -22,7 +22,7 @@
 .booking-header .overlay {
   position: absolute;
   bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
   color: white;
   padding: 1.5rem;
 }
@@ -66,19 +66,19 @@
   text-transform: capitalize;
 }
 
-.status.completed {
-  background: #ecfdf5;
-  color: #047857;
-}
-
 .status.upcoming {
-  background: #eff6ff;
-  color: #1d4ed8;
+  background: #dad1b4;
+  color: #dbab0e;
 }
 
 .status.in-progress {
-  background: #fef3c7;
-  color: #b45309;
+  background: #bdc6dc;
+  color: #1d4ed8;
+}
+
+.status.completed {
+  background: #ecfdf5;
+  color: #16a34a;
 }
 
 .action {

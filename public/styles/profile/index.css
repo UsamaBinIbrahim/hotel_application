@@ -158,12 +158,16 @@ body {
     border-radius: 0.75rem;
 }
 
+.amber {
+    color: #d97706;
+}
+
 .blue {
-    color: #2563eb;
+    color: #1d4ed8;
 }
 
 .green {
-    color: #059669;
+    color: #16a34a;
 }
 
 .button {
@@ -271,10 +275,17 @@ body {
     color: #64748b;
 }
 
-.shown {
+.empty-state {
     text-align: center;
-    font-size: 0.875rem;
+    padding: 2rem;
     color: #64748b;
+}
+
+.empty-state .empty-icon {
+    width: 3rem;
+    height: 3rem;
+    color: #e11d48;
+    margin-bottom: 0.5rem;
 }
 
 .stats {
@@ -316,12 +327,12 @@ body {
 
 .stat.blue .circle {
     background: #dbeafe;
-    color: #2563eb;
+    color: #1d4ed8;
 }
 
 .stat.green .circle {
     background: #d1fae5;
-    color: #059669;
+    color: #16a34a;
 }
 
 .stat.red .circle {

@@ -80,11 +80,11 @@ body {
 }
 
 .status.upcoming {
-  color: #2563eb;
+  color: #dbab0e;
 }
 
-.status.in-progress {
-  color: #059669;
+.status.active {
+  color: #1d4ed8;
 }
 
 .status.completed {

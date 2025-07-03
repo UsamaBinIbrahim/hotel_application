@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\BookedRoom;
 use App\Models\Booking;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -27,23 +28,15 @@ class UpdateBookingStatuses extends Command
      */
     public function handle()
     {
-        $now = Carbon::now();
+        $now = Carbon::now()->startOfDay();
 
         Booking::where('status', 'upcoming')
             ->whereDate('check_in_date', '<=', $now)
-            ->update(['status' => 'in_progress']);
-        $completed_bookings = Booking::where('status', '!=', 'completed')
-            ->whereDate('check_out_date', '<', $now)
-            ->get();
-        
-        foreach ($completed_bookings as $booking) {
-            $booking->status = 'completed';
-            $booking->save();
-
-            $hotel = $booking->hotel;
-            $hotel->available_rooms += 1;
-            $hotel->save();
-        }
+            ->update(['status' => 'active']);
+            
+        Booking::where('status', '!=', 'completed')
+            ->whereDate('check_out_date', '<=', $now)
+            ->update(['status' => 'complete']);
 
         $this->info('Booking statuses updated successfully.');
     }

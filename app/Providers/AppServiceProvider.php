@@ -12,8 +12,6 @@ use Laravel\Fortify\Contracts\LogoutResponse as FortifyLogoutResponse;
 use Filament\Http\Responses\Auth\Contracts\LogoutResponse as FilamentLogoutResponse;
 use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 class AppServiceProvider extends ServiceProvider
@@ -48,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
                 abort(403, 'Forbidden');
             }
 
-            Auth::shouldUse('admin');
+            auth()->shouldUse('admin');
         });
     }
 }

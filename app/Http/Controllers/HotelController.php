@@ -19,28 +19,6 @@ class HotelController extends Controller
     }
 
     public function show(Hotel $hotel) {
-        $amenities = [
-            'Free Wi-Fi',
-            'Outdoor Pool',
-            'Restaurant & Bar',
-            '24/7 Reception',
-            'Spa Services',
-        ];
-        // $hotel = [
-        //     'name' => 'Sunrise Resort',
-        //     'location' => 'Beirut, Lebanon',
-        //     'price' => 120,
-        //     'image' => 'hotel.h',
-        //     'amenities' => [
-        //     'Free Wi-Fi',
-        //     'Outdoor Pool',
-        //     'Restaurant & Bar',
-        //     '24/7 Reception',
-        //     'Spa Services',
-        //     ],
-        //     'description' => 'Sunrise Resort offers a luxury stay with world-class amenities and breathtaking views. Whether you are here for business or leisure, we provide everything to make your stay comfortable and memorable.',
-        // ];
-
-        return view('hotels.show', ['hotel' => $hotel, 'amenities' => $amenities]);
+        return view('hotels.show', ['hotel' => $hotel]);
     }
 }

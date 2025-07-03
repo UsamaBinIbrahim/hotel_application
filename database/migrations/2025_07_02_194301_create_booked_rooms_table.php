@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('booked_rooms', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('hotel_id')->constrained()->cascadeOnDelete();
-        $table->date('date');
-        $table->unsignedInteger('rooms_booked')->default(0);
-        $table->timestamps();
-        $table->unique(['hotel_id', 'date']);
+            $table->id();
+            $table->foreignId('hotel_id')->constrained()->cascadeOnDelete();
+            $table->date('date');
+            $table->unsignedInteger('rooms_booked')->default(0);
+            $table->timestamps();
+            $table->unique(['hotel_id', 'date']);
         });
     }
 

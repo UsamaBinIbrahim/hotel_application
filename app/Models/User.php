@@ -49,4 +49,8 @@ class User extends Authenticatable
     public function bookings() {
         return $this->hasMany(Booking::class);
     }
+
+    public function favoriteHotels() {
+        return $this->belongsToMany(Hotel::class, 'favorite_hotels')->withTimestamps();
+    }
 }

@@ -33,6 +33,10 @@ class Hotel extends Model
         return $this->hasMany(BookedRoom::class);
     }
 
+    public function favoritedBy() {
+        return $this->belognsToMany(User::class, 'favorite_hotels');
+    }
+
     protected static function booted(): void {
         static::creating(function ($hotel) {
             $hotel->available_rooms = $hotel->total_rooms;

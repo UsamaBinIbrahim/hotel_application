@@ -7,10 +7,23 @@ use App\Models\Booking;
 use App\Models\Hotel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
+    public function index() {
+        $bookings = auth()->user()->bookings;
+        return view('bookings.index', ['bookings' => $bookings]);
+    }
+
+    public function show(Booking $booking) {
+        return view('bookings.show', ['booking' => $booking]);
+    }
+
+    public function destroy(Booking $booking) {
+        $booking->delete();
+        return to_route('bookings.index');
+    }
+
     public function create(Hotel $hotel) {
         return view('bookings.create', ['hotel' => $hotel]);
     }
@@ -60,7 +73,7 @@ class BookingController extends Controller
 
         $booking = Booking::create([
             'hotel_id' => $hotel->id,
-            'user_id' => Auth::user()->id,
+            'user_id' => auth()->user()->id,
             'full_name' => $validated['full_name'],
             'email' => $validated['email'],
             'phone_number' => $validated['phone_number'],
@@ -75,20 +88,6 @@ class BookingController extends Controller
             self::updateBookedRooms($hotel, $check_in, $check_out);
         }
 
-        return to_route('bookings.index');
-    }
-    
-    public function index() {
-        $bookings = Auth::user()->bookings;
-        return view('bookings.index', ['bookings' => $bookings]);
-    }
-
-    public function show(Booking $booking) {
-        return view('bookings.show', ['booking' => $booking]);
-    }
-
-    public function destroy(Booking $booking) {
-        $booking->delete();
         return to_route('bookings.index');
     }
 

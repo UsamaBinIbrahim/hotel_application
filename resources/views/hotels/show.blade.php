@@ -14,10 +14,11 @@
     <i data-lucide="arrow-left"></i> Back
   </a>
 
-  <form method="POST" action="#">
+  @php $is_favorite = auth()->user()->favoriteHotels->contains($hotel->id) @endphp
+  <form method="POST" action="{{route('favorites.toggle', $hotel->id)}}">
     @csrf
-    <button type="button" class="add-fav-btn">
-      <i data-lucide="heart"></i> Add to Favorites
+    <button type="submit" class="{{$is_favorite? 'fav-btn': 'unfav-btn'}}">
+      <i data-lucide="{{$is_favorite? 'heart': 'heart-off'}}"></i>
     </button>
   </form>
 </div>
@@ -26,6 +27,17 @@
   <div class="images-container">
     <div class="slider-wrapper">
       <div class="slider">
+        @foreach ($hotel->images as $image)
+          <img id="slide-{{ $loop->iteration }}" src="{{ asset('storage/' . $image) }}" alt="Hotel Image" />
+        @endforeach
+      </div>
+
+      <div class="slider-nav">
+        @foreach ($hotel->images as $image)
+          <a href="#slide-{{ $loop->iteration }}"></a>
+        @endforeach
+      </div>
+      {{-- <div class="slider">
         <img id="slide-1" src="{{asset('images/hotel.h')}}" alt="Hotel Image" />
         <img id="slide-2" src="{{asset('images/hotel.h')}}" alt="Hotel Image" />
         <img id="slide-3" src="{{asset('images/hotel.h')}}" alt="Hotel Image" />
@@ -34,7 +46,7 @@
         <a href="#slide-1"></a>
         <a href="#slide-2"></a>
         <a href="#slide-3"></a>
-      </div>
+      </div> --}}
     </div>
   </div>
   
@@ -49,8 +61,8 @@
         <div class="info-card">
             <h4>Amenities</h4>
             <ul>
-                @foreach ($amenities as $amenity)
-                    <li>{{$amenity}}</li>
+                @foreach ($hotel->amenities as $amenity)
+                    <li>{{$amenity->name}}</li>
                 @endforeach
             </ul>
         </div>
