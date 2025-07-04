@@ -15,6 +15,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
     Route::post('/favorties/{hotel}', [FavoriteHotelController::class, 'toggle'])->name('favorites.toggle');
+    Route::get('/favorites/{hotel}', [FavoriteHotelController::class, 'check'])->name('favorites.check');
     Route::get('/favorites', [FavoriteHotelController::class, 'index'])->name('favorites.index');
     Route::delete('/favorites/{hotel}', [FavoriteHotelController::class, 'destroy'])->name('favorites.destroy');
     

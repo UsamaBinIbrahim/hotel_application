@@ -18,7 +18,7 @@
 
     <div class="favorites-grid">
       @foreach ($favorite_hotels as $hotel)
-        <div class="favorite-card">
+        <div class="favorite-card" id="hotel_{{$hotel->id}}">
           <img src="{{asset('storage/' . $hotel->main_image)}}" alt="{{$hotel->name}}">
           <div class="favorite-info">
             <h3>{{$hotel->name}}</h3>
@@ -27,7 +27,7 @@
             <button onclick="window.location.href='{{route('hotels.show', ['hotel' => $hotel->id, 'back' => url()->current()])}}'" class="view-btn">
               <i data-lucide="eye"></i> View Details
             </button>
-              <button class="remove-btn">
+              <button class="remove-btn" data-hotel-id="{{$hotel->id}}">
                 <i data-lucide="heart-off"></i> Remove
               </button>
           </div>
@@ -41,6 +41,24 @@
   <script>
     $(document).ready(function() {
       lucide.createIcons();
+
+      $('.remove-btn').on('click', function() {
+        $(this).attr('disabled', true);
+        const hoteId = $(this).data('hotel-id');
+        const url = '{{route('favorites.destroy', ['hotel' => ':hotelId'])}}'.replace(':hotelId', hoteId);
+        $.ajax({
+          url: url,
+          method: 'DELETE',
+          dataType: 'json',
+          success: function(response) {
+            $('#hotel_' + hoteId).remove();
+          },
+          error: function(error) {
+            console.log(error.message);
+          }
+        });
+        $(this).removeAttr('disabled');
+      });
     });
   </script>
 @endsection

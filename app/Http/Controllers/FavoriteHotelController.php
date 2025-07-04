@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hotel;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class FavoriteHotelController extends Controller
 {
@@ -22,6 +20,12 @@ class FavoriteHotelController extends Controller
         return response()->json(['class' => $class, 'data_lucide' => $data_lucide]);
     }
 
+    public function check(Hotel $hotel) {
+        return response()->json([
+            'is_favorite' => auth()->user()->favoriteHotels()->where('hotel_id', $hotel->id)->exists()
+        ]);
+    }
+
     public function index() {
         $user = auth()->user();
         $favorite_hotels = $user->favoriteHotels()
@@ -31,7 +35,11 @@ class FavoriteHotelController extends Controller
     }
 
     public function destroy(Hotel $hotel) {
-        auth()->user()->favoriteHotels()->detach($hotel->id);
-        return back();
+        $user = auth()->user();
+        if(!$user->favoriteHotels()->where('hotel_id', $hotel->id)->exists()) {
+            return response()->json(['message' => 'hotel isn\'t favorited']);
+        }
+        $user->favoriteHotels()->detach($hotel->id);
+        return response()->json(['message' => 'removed from favorites']);
     }
 }

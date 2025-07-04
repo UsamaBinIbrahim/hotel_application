@@ -14,11 +14,12 @@
     <i data-lucide="arrow-left"></i> Back
   </a>
 
-  @php $is_favorite = auth()->user()->favoriteHotels->contains($hotel->id) @endphp
-  {{-- <button type="button" onclick="toggle({{$hotel->id}})" id="toggle-btn" class="{{$is_favorite? 'fav-btn': 'unfav-btn'}}"> --}}
-  <button type="button" id="toggle-btn" data-hotel-id="{{$hotel->id}}" class="{{$is_favorite? 'fav-btn': 'unfav-btn'}}">
-    <i id="toggle-data-lucide" data-lucide="{{$is_favorite? 'heart': 'heart-off'}}"></i>
-  </button>
+  @if (auth()->check())
+    @php $is_favorite = auth()->user()->favoriteHotels->contains($hotel->id) @endphp  
+    <button type="button" id="toggle-btn" data-hotel-id="{{$hotel->id}}" class="{{$is_favorite? 'fav-btn': 'unfav-btn'}}">
+      <i id="toggle-data-lucide" data-lucide="{{$is_favorite? 'heart': 'heart-off'}}"></i>
+    </button>
+  @endif
 </div>
 
 
@@ -75,6 +76,33 @@
 
 @section('scripts')
   <script>
+    $(window).on('pageshow', function() {
+      const userLogged = {{auth()->check() == true? 1: 0}};
+      if(userLogged) {
+        const toggleBtn = $('#toggle-btn');
+        const toggleLucideData = $('#toggle-data-lucide');
+        const url = '{{route('favorites.check', ':hotelId')}}'.replace(':hotelId', toggleBtn.data('hotel-id'));
+        $.ajax({
+          url: url,
+          method: 'GET',
+          dataType: 'json',
+          success: function(response) {
+            const isFavorite = response.is_favorite;
+            if (isFavorite) {
+              toggleBtn.attr('class', 'fav-btn');
+              toggleLucideData.attr('data-lucide', 'heart');
+            } else {
+              toggleBtn.attr('class', 'unfav-btn');
+              toggleLucideData.attr('data-lucide', 'heart-off');
+            }
+            lucide.createIcons();
+          },
+          error: function(error) {
+            console.log('error message: ' + error.message);
+          },
+        });
+      }
+    });
     $(document).ready(function() {
       lucide.createIcons();
 
@@ -89,12 +117,12 @@
             $('#toggle-btn').attr('class', response.class);
             $('#toggle-data-lucide').attr('data-lucide', response.data_lucide);
             lucide.createIcons();
-            $('#toggle-btn').removeAttr('disabled');
           },
           error: function(error) {
             console.log(error);
           }
         });
+        $('#toggle-btn').removeAttr('disabled');
       });
     });
   </script>
