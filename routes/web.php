@@ -13,6 +13,7 @@ Route::get('/hotels/{hotel}', [HotelController::class, 'show'])->name('hotels.sh
 Route::middleware('auth')->group(function() {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::post('/favorties/{hotel}', [FavoriteHotelController::class, 'toggle'])->name('favorites.toggle');
     Route::get('/favorites/{hotel}', [FavoriteHotelController::class, 'check'])->name('favorites.check');

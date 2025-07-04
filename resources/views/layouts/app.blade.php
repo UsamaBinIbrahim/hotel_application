@@ -42,6 +42,8 @@
   {{-- <script src="https://unpkg.com/lucide@0.525.0/dist/umd/lucide.min.js"></script> --}}
   <script src="{{asset('scripts/jquery.js')}}"></script>
   {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> --}}
+  <script src="{{asset('scripts/jsdelivr.js')}}"></script>
+  {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
   <script>
     $.ajaxSetup({
       headers: {
