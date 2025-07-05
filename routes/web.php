@@ -7,25 +7,37 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HotelController::class, 'homepage'])->name('homepage');
-Route::get('/hotels', [HotelController::class, 'index'])->name('hotels.index');
-Route::get('/hotels/filter', [HotelController::class, 'filter'])->name('hotels.filter');
-Route::get('/hotels/{hotel}', [HotelController::class, 'show'])->name('hotels.show');
+
+Route::prefix('/hotels')->group(function() {
+    Route::get('/', [HotelController::class, 'index'])->name('hotels.index');
+    Route::get('/filter', [HotelController::class, 'filter'])->name('hotels.filter');
+    Route::get('/{hotel}', [HotelController::class, 'show'])->name('hotels.show');
+});
 
 Route::middleware('auth')->group(function() {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    
+    Route::prefix('/profile')->group(function() {
+        Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+        Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/', [ProfileController::class, 'update'])->name('profile.update');
+    });
 
-    Route::post('/favorties/{hotel}', [FavoriteHotelController::class, 'toggle'])->name('favorites.toggle');
-    Route::get('/favorites/{hotel}', [FavoriteHotelController::class, 'check'])->name('favorites.check');
-    Route::get('/favorites', [FavoriteHotelController::class, 'index'])->name('favorites.index');
-    Route::delete('/favorites/{hotel}', [FavoriteHotelController::class, 'destroy'])->name('favorites.destroy');
+    Route::prefix('/favorites')->group(function() {
+        Route::post('/{hotel}', [FavoriteHotelController::class, 'toggle'])->name('favorites.toggle');
+        Route::get('/{hotel}', [FavoriteHotelController::class, 'check'])->name('favorites.check');
+        Route::get('/', [FavoriteHotelController::class, 'index'])->name('favorites.index');
+        Route::delete('/{hotel}', [FavoriteHotelController::class, 'destroy'])->name('favorites.destroy');
+    });
     
     // booking routes tied to hotel
-    Route::get('/hotels/{hotel}/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
-    Route::post('/hotels/{hotel}/bookings', [BookingController::class, 'store'])->name('bookings.store');
+    Route::prefix('/hotels')->group(function() {
+        Route::get('/{hotel}/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
+        Route::post('/{hotel}/bookings', [BookingController::class, 'store'])->name('bookings.store');
+    });
     // booking management standalone
-    Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
-    Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
-    Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
+    Route::prefix('/bookings')->group(function() {
+        Route::get('/', [BookingController::class, 'index'])->name('bookings.index');
+        Route::get('/{booking}', [BookingController::class, 'show'])->name('bookings.show');
+        Route::delete('/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
+    });
 });
