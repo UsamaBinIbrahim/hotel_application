@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-  Booking Details
+  Hotel Booking | Booking Details
 @endsection
 
 @section('style')
@@ -34,13 +34,9 @@
         <i data-lucide="arrow-left"></i> Go Back
       </a>
       @if ($booking->status == 'upcoming' || $booking->status == 'completed')
-        <form method="POST" action="{{route('bookings.destroy', $booking->id)}}">
-          @csrf
-          @method('DELETE')
-          <button type="submit" class="button red full">
-            <i data-lucide="trash-2"></i> {{$booking->status == 'completed'? 'Delete': 'Cancel'}} Booking
-          </button>
-        </form>
+        <button type="button" class="button red full" id="delete-btn">
+          <i data-lucide="trash-2"></i> {{$booking->status == 'completed'? 'Delete': 'Cancel'}} Booking
+        </button>
       @endif
     </div>
   </div>
@@ -51,6 +47,32 @@
   <script>
     $(document).ready(function() {
       lucide.createIcons();
+
+      $('#delete-btn').on('click', function() {
+        $('#delete-btn').attr('disabled', true);
+        const url = '{{route('bookings.destroy', ['booking' => ':bookingId'])}}'.replace(':bookingId', {{$booking->id}})
+        
+        $.ajax({
+          url: url,
+          method: 'DELETE',
+          success: function(response) {
+            const bookingStatus = '{{$booking->status}}';
+            const action = (() => {
+              if(bookingStatus === 'completed') return 'deleted';
+              if(bookingStatus === 'upcoming') return 'canceled';
+              return '';
+            })();
+            alertSuccess({title: 'Booking ' + action, text: 'Booking has been ' + action + ' successfully.'});
+            setTimeout(() => {
+              response.bookings_left > 0
+                ? window.location.href='{{route('bookings.index')}}'
+                : window.location.href='{{route('profile.index')}}';
+            }, 1000);
+          },
+          error: function(error) {
+          }
+        });
+      });
     });
   </script>
 @endsection

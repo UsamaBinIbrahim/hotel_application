@@ -40,6 +40,9 @@ class FavoriteHotelController extends Controller
             return response()->json(['message' => 'hotel isn\'t favorited']);
         }
         $user->favoriteHotels()->detach($hotel->id);
-        return response()->json(['message' => 'removed from favorites']);
+        return response()->json([
+            'message' => 'removed from favorites',
+            'favorites_left' => $user->favoriteHotels()->count()
+        ]);
     }
 }

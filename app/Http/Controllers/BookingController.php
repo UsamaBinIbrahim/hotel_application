@@ -40,7 +40,10 @@ class BookingController extends Controller
             }
         }
         $booking->delete();
-        return to_route('bookings.index');
+        return response()->json([
+            'status' => 'success',
+            'bookings_left' => Booking::where('user_id', auth()->id())->count()
+        ]);
     }
 
     public function create(Hotel $hotel) {

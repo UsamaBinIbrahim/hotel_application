@@ -256,6 +256,7 @@ body {
 .favorites .hotel:hover {
     background: #f8fafc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
 }
 
 .favorites img {

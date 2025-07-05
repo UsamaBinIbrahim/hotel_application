@@ -16,7 +16,7 @@
 
   @if (auth()->check())
     @php $is_favorite = auth()->user()->favoriteHotels->contains($hotel->id) @endphp  
-    <button type="button" id="toggle-btn" data-hotel-id="{{$hotel->id}}" class="{{$is_favorite? 'fav-btn': 'unfav-btn'}}">
+    <button type="button" id="toggle-btn" class="{{$is_favorite? 'fav-btn': 'unfav-btn'}}">
       <i id="toggle-data-lucide" data-lucide="{{$is_favorite? 'heart': 'heart-off'}}"></i>
     </button>
   @endif
@@ -81,7 +81,7 @@
       if(userLogged) {
         const toggleBtn = $('#toggle-btn');
         const toggleLucideData = $('#toggle-data-lucide');
-        const url = '{{route('favorites.check', ':hotelId')}}'.replace(':hotelId', toggleBtn.data('hotel-id'));
+        const url = '{{route('favorites.check', ':hotelId')}}'.replace(':hotelId', {{$hotel->id}});
         $.ajax({
           url: url,
           method: 'GET',
@@ -97,9 +97,6 @@
             }
             lucide.createIcons();
           },
-          error: function(error) {
-            console.log('error message: ' + error.message);
-          },
         });
       }
     });
@@ -108,7 +105,7 @@
 
       $(document).on('click', '#toggle-btn', function(e) {
         e.preventDefault();
-        const url = '{{route('favorites.toggle', ':hotelId')}}'.replace(':hotelId', $(this).data('hotel-id'));
+        const url = '{{route('favorites.toggle', ':hotelId')}}'.replace(':hotelId', {{$hotel->id}});
         $.ajax({
           url: url,
           method: 'POST',
@@ -118,9 +115,6 @@
             $('#toggle-data-lucide').attr('data-lucide', response.data_lucide);
             lucide.createIcons();
           },
-          error: function(error) {
-            console.log(error);
-          }
         });
         $('#toggle-btn').removeAttr('disabled');
       });

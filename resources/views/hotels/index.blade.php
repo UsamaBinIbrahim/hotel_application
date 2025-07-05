@@ -17,7 +17,7 @@
   
   <div class="search-bar">
     <input type="text" id="searchInput" placeholder="Search by location or name..." />
-    <button onclick="filterHotels()">Search</button>
+    <button onclick="filterHotels()"><i data-lucide="search"></i></button>
   </div>
 
   <div class="hotels-container" id="hotelsContainer">
@@ -41,6 +41,8 @@
   <script>
     $(document).ready(function() {
       lucide.createIcons();
+
+      
     });
   </script>
 @endsection

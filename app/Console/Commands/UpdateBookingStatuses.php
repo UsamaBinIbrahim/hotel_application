@@ -36,7 +36,7 @@ class UpdateBookingStatuses extends Command
             
         Booking::where('status', '!=', 'completed')
             ->whereDate('check_out_date', '<=', $now)
-            ->update(['status' => 'complete']);
+            ->update(['status' => 'completed']);
 
         $this->info('Booking statuses updated successfully.');
     }

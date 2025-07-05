@@ -55,27 +55,10 @@
           email: $('#email').val()
         },
         success: function(response) {
-          console.log(response);
-          Swal.fire({
-            icon: 'success',
-            title: 'Profile updated!',
-            text: 'Your profile has been updated successfully.',
-            timer: 2500,
-            showConfirmButton: false,
-            toast: true,
-            position: 'top-end'
-          });
+          alertSuccess({title: 'Profile updated!', text: 'Your profile has been updated successfully.'});
         },
         error: function(error) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!'
-            timer: 2500,
-            showConfirmButton: false,
-            toast: true,
-            position: 'top-end'
-          });
+          alertError();
         }
       });
       $(this).removeAttr('disabled');

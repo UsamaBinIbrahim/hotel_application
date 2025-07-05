@@ -102,7 +102,7 @@
             </div>
           @else
             @foreach ($user->favoriteHotels as $hotel)
-              <div class="hotel">
+              <div class="hotel" data-hotel-id="{{$hotel->id}}">
                 <img src="{{asset('storage/' . $hotel->main_image)}}" alt="{{$hotel->name}}">
                 <div>
                   <p>{{$hotel->name}}</p>
@@ -137,6 +137,11 @@
   <script>
     $(document).ready(function() {
       lucide.createIcons();
+
+      $('.hotel').on('click', function() {
+        const url = '{{route('hotels.show', ['hotel' => ':hotelId', 'back' => url()->current()])}}'.replace(':hotelId', $(this).data('hotel-id'));
+        window.location.href=url;
+      });
     });
   </script>
 @endsection

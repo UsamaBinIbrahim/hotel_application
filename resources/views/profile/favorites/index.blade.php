@@ -27,8 +27,8 @@
             <button onclick="window.location.href='{{route('hotels.show', ['hotel' => $hotel->id, 'back' => url()->current()])}}'" class="view-btn">
               <i data-lucide="eye"></i> View Details
             </button>
-              <button class="remove-btn" data-hotel-id="{{$hotel->id}}">
-                <i data-lucide="heart-off"></i> Remove
+              <button data-hotel-id="{{$hotel->id}}" class="remove-btn">
+                <i data-lucide="heart-off"></i> Remove {{$hotel->id}}
               </button>
           </div>
         </div>
@@ -44,17 +44,23 @@
 
       $('.remove-btn').on('click', function() {
         $(this).attr('disabled', true);
-        const hoteId = $(this).data('hotel-id');
-        const url = '{{route('favorites.destroy', ['hotel' => ':hotelId'])}}'.replace(':hotelId', hoteId);
+        const hotelId = $(this).data('hotel-id');
+        const url = '{{route('favorites.destroy', ['hotel' => ':hotelId'])}}'.replace(':hotelId', hotelId);
         $.ajax({
           url: url,
           method: 'DELETE',
           dataType: 'json',
           success: function(response) {
-            $('#hotel_' + hoteId).remove();
+            $('#hotel_' + hotelId).fadeOut(300, function() {
+              $('#hotel_' + hotelId).remove();
+            });
+            alertSuccess({title: 'Favorite Removed', text: 'Hotel has been removed from your favorites.'});
+            if(response.favorites_left <= 0) {
+              window.location.href='{{route('profile.index')}}';
+            }
           },
           error: function(error) {
-            console.log(error.message);
+            alertError();
           }
         });
         $(this).removeAttr('disabled');

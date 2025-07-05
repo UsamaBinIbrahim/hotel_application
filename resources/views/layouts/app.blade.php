@@ -50,6 +50,33 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
+
+    function alertSuccess(options) {
+      if(!options || typeof options !== 'object') throw new Error('alertSuccess() requires a plain object parameter.');
+      if(!options.title) throw new Error('alertSuccess() requires title key of the plain object parameter.');
+      if(!options.text) throw new Error('alertSuccess() requires text key of the plain object parameter.');
+      Swal.fire({
+        icon: 'success',
+        title: options.title,
+        text: options.text,
+        timer: 2000,
+        showConfirmButton: false,
+        toast: true,
+        position: 'top-end'
+      });
+    }
+
+    function alertError() {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        timer: 2500,
+        showConfirmButton: false,
+        toast: true,
+        position: 'top-end'
+      });
+    }
   </script>
   @yield('scripts')
 </body>
