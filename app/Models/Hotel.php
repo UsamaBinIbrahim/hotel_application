@@ -38,10 +38,6 @@ class Hotel extends Model
     }
 
     protected static function booted(): void {
-        static::creating(function ($hotel) {
-            $hotel->available_rooms = $hotel->total_rooms;
-        });
-
         static::updating(function ($hotel) {
             self::updateImages($hotel);
             self::updateMainImage($hotel);

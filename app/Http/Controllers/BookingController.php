@@ -52,9 +52,9 @@ class BookingController extends Controller
     
     public function store(Hotel $hotel, Request $request) {
         $validated = $request->validate([
-            'full_name' => 'required',
-            'email' => 'required|email',
-            'phone_number' => 'required',
+            'full_name' => 'required|string',
+            'email' => 'required|email|string',
+            'phone_number' => 'required|string',
             'check_in' => 'required|date|after:today|before:check_out',
             'check_out' => 'required|date|after:check_in',
             'adults' => 'required|integer|min:1',

@@ -45,10 +45,9 @@ class HotelResource extends Resource
 
                         Group::make()->schema([
                             Section::make('Pricing & Room Details')->schema([
-                                TextInput::make('price_per_night')->required()->minValue(1)->numeric()->columnSpanFull(),
+                                TextInput::make('price_per_night')->required()->minValue(1)->numeric(),
                                 TextInput::make('total_rooms')->required()->minValue(1)->numeric(),
-                                TextInput::make('available_rooms')->required()->numeric()->visible(),
-                            ])->columns(3),
+                            ])->columns(2),
 
                             Section::make('Guests Rules')->schema([
                                 TextInput::make('max_guests')->required()->numeric()->minValue(1)->default(4),
@@ -121,10 +120,6 @@ class HotelResource extends Resource
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('total_rooms')
-                    ->numeric()
-                    ->sortable()
-                    ->toggleable(),
-                TextColumn::make('available_rooms')
                     ->numeric()
                     ->sortable()
                     ->toggleable(),

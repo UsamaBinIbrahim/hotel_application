@@ -13,6 +13,9 @@
   <a href="{{ request('back', route('hotels.index')) }}" class="back-button" style="display: flex; align-items: center; gap: 0.5rem;">
     <i data-lucide="arrow-left"></i> Back
   </a>
+  @php
+      info(request('back', route('hotels.index')));
+  @endphp
 
   @if (auth()->check())
     @php $is_favorite = auth()->user()->favoriteHotels->contains($hotel->id) @endphp  

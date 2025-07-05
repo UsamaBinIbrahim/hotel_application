@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HotelController::class, 'homepage'])->name('homepage');
 Route::get('/hotels', [HotelController::class, 'index'])->name('hotels.index');
+Route::get('/hotels/filter', [HotelController::class, 'filter'])->name('hotels.filter');
 Route::get('/hotels/{hotel}', [HotelController::class, 'show'])->name('hotels.show');
 
 Route::middleware('auth')->group(function() {
