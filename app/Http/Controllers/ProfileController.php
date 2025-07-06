@@ -3,12 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\Hotel;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
     public function index() {
-        return view('profile.index');
+        $user = auth()->user();
+        $recent_favorite_hotels = $user->favoriteHotels()
+            ->withPivot('created_at')
+            ->select('hotels.id', 'hotels.name', 'hotels.location', 'hotels.price_per_night', 'hotels.main_image')
+            ->orderByDesc('pivot_created_at')
+            ->take(3)
+            ->get();
+        return view('profile.index', compact('recent_favorite_hotels'));
     }
 
     public function edit() {

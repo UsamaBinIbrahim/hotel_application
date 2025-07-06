@@ -34,7 +34,7 @@ class Hotel extends Model
     }
 
     public function favoritedBy() {
-        return $this->belognsToMany(User::class, 'favorite_hotels');
+        return $this->belognsToMany(User::class, 'favorite_hotels')->withTimestamps();
     }
 
     protected static function booted(): void {

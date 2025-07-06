@@ -101,7 +101,7 @@
               <p>Browse and tap the heart icon to add some!</p>
             </div>
           @else
-            @foreach ($user->favoriteHotels as $hotel)
+            @foreach ($recent_favorite_hotels as $hotel)
               <div class="hotel" data-hotel-id="{{$hotel->id}}">
                 <img src="{{asset('storage/' . $hotel->main_image)}}" alt="{{$hotel->name}}">
                 <div>

@@ -14,7 +14,7 @@
   </div>
 
   <section id="hotels">
-    @foreach ($hotels as $hotel)
+    @foreach ($top_hotels as $hotel)
       <a href="{{route('hotels.show', $hotel->id)}}" class="hotel-link">
         <div class="hotel">
           <div class="hotel-photo">
