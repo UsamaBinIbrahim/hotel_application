@@ -39,6 +39,11 @@
 @section('scripts')
   <script>
     $(document).ready(function() {
+      const bookingRemoved = {{$booking_removed ?? 'false'}};
+      const bookingCreated = {{$booking_created ?? 'false'}};
+      if(bookingRemoved) {alertSuccess({title: 'Booking removed', text: 'Booking has been removed successfully.'});}
+      if(bookingCreated) {alertSuccess({title: 'Booking reserved', text: 'Booking has been reserved successfully'})}
+
       lucide.createIcons();
     });
   </script>

@@ -15,7 +15,7 @@
 
   <section id="hotels">
     @foreach ($top_hotels as $hotel)
-      <a href="{{route('hotels.show', $hotel->id)}}" class="hotel-link">
+      <a href="{{route('hotels.show', ['hotel' => $hotel->id, 'back' => url()->current()])}}" class="hotel-link">
         <div class="hotel">
           <div class="hotel-photo">
             <img src="{{asset('storage/' . $hotel->main_image)}}" alt="{{$hotel->name}}">

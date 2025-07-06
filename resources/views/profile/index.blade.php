@@ -136,12 +136,15 @@
 @section('scripts')
   <script>
     $(document).ready(function() {
-      lucide.createIcons();
-
+      const bookingRemoved = {{$booking_removed ?? 'false'}}
+      if(bookingRemoved) {alertSuccess({title: 'Booking removed', text: 'Booking has been removed successfully.'});}
+      
       $('.hotel').on('click', function() {
         const url = '{{route('hotels.show', ['hotel' => ':hotelId', 'back' => url()->current()])}}'.replace(':hotelId', $(this).data('hotel-id'));
         window.location.href=url;
       });
+      
+      lucide.createIcons();
     });
   </script>
 @endsection

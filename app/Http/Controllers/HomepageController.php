@@ -13,6 +13,6 @@ class HomepageController extends Controller
             ->orderByDesc('bookings_count')
             ->take(3)
             ->get();
-        return view('homepage.index', compact('top_hotels'));
+        return view('homepage', compact('top_hotels'));
     }
 }

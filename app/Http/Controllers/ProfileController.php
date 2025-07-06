@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+        $booking_removed = $request->booking_removed;
         $user = auth()->user();
         $recent_favorite_hotels = $user->favoriteHotels()
             ->withPivot('created_at')
@@ -16,7 +17,7 @@ class ProfileController extends Controller
             ->orderByDesc('pivot_created_at')
             ->take(3)
             ->get();
-        return view('profile.index', compact('recent_favorite_hotels'));
+        return view('profile.index', compact('recent_favorite_hotels', 'booking_removed'));
     }
 
     public function edit() {

@@ -10,13 +10,15 @@ use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+        $booking_removed = $request->booking_removed;
+        $booking_created = $request->booking_created;
         $bookings = auth()->user()->bookings;
-        return view('bookings.index', ['bookings' => $bookings]);
+        return view('bookings.index', compact('bookings', 'booking_removed', 'booking_created'));
     }
 
     public function show(Booking $booking) {
-        return view('bookings.show', ['booking' => $booking]);
+        return view('bookings.show', compact('booking'));
     }
 
     public function destroy(Booking $booking) {
@@ -47,10 +49,11 @@ class BookingController extends Controller
     }
 
     public function create(Hotel $hotel) {
-        return view('bookings.create', ['hotel' => $hotel]);
+        return view('bookings.create', compact('hotel'));
     }
     
     public function store(Hotel $hotel, Request $request) {
+        $booking_created = $request->booking_created;
         $validated = $request->validate([
             'full_name' => 'required|string',
             'email' => 'required|email|string',
@@ -110,7 +113,7 @@ class BookingController extends Controller
             self::updateBookedRooms($hotel, $check_in, $check_out);
         }
 
-        return to_route('bookings.index');
+        return to_route('bookings.index', compact('booking_created'));
     }
 
     private static function checkUnavailableDate(Hotel $hotel, $check_in, $check_out) {

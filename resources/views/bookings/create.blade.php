@@ -11,7 +11,7 @@
 @section('content')
   <div class="booking-container">
     <h2>Reserve Your Stay</h2>
-    <form id="booking_form" method="POST" action="{{route('bookings.store', $hotel->id)}}">
+    <form id="booking_form" method="POST" action="{{route('bookings.store', ['hotel' => $hotel->id, 'booking_created' => true])}}">
       @csrf
       <input type="text" placeholder="Full Name" id="full_name" name="full_name" value="{{old('full_name')}}" required />
       <div class="errors">

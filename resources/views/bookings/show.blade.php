@@ -51,12 +51,6 @@
       $('#delete-btn').on('click',async function() {
         $('#delete-btn').attr('disabled', true);
         const url = '{{route('bookings.destroy', ['booking' => ':bookingId'])}}'.replace(':bookingId', {{$booking->id}});
-        const bookingStatus = '{{$booking->status}}';
-        const action = (() => {
-          if(bookingStatus === 'completed') return 'deleted';
-          if(bookingStatus === 'upcoming') return 'canceled';
-          return '';
-        })();
         const isConfirmed = await alertWarning({text: 'Are you sure you want to perform this action?'});
         if(!isConfirmed) {
           $('#delete-btn').removeAttr('disabled');
@@ -67,12 +61,9 @@
           url: url,
           method: 'DELETE',
           success: function(response) {
-            alertSuccess({title: 'Booking ' + action, text: 'Booking has been ' + action + ' successfully.'});
-            setTimeout(() => {
-              response.bookings_left > 0
-                ? window.location.href='{{route('bookings.index')}}'
-                : window.location.href='{{route('profile.index')}}';
-            }, 1000);
+            response.bookings_left > 0
+              ? window.location.href='{{route('bookings.index', ['booking_removed' => true])}}'
+              : window.location.href='{{route('profile.index', ['booking_removed' => true])}}';
           },
           error: function() {
             alertError();
