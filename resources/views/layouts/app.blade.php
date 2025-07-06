@@ -9,33 +9,80 @@
   @yield('style')
 </head>
 <body>
-  <header>
-    <div class="logo">
-        <h1>Hotel Booking App</h1>
-        <p>Find and book your perfect stay</p>
+  <header class="navbar">
+    <div class="navbar-container">
+      {{-- Logo --}}
+      <div class="navbar-logo">
+        <i data-lucide="hotel" class="logo-icon"></i>
+        <div>
+          <h1>Hotel Booking App</h1>
+          <p>Find and book your perfect stay</p>
+        </div>
+      </div>
+
+      {{-- Desktop Menu --}}
+      <nav class="navbar-links">
+        <a href="{{ route('homepage.index') }}">Home</a>
+        <a href="{{ route('hotels.index') }}">Browse Hotels</a>
+        @if (auth()->check())
+          <a href="{{ route('profile.index') }}" class="login-btn">
+            <i data-lucide="user" class="icon-inline"></i> Profile
+          </a>
+        @else
+          <a href="{{ route('login') }}" class="login-btn">
+            <i data-lucide="log-in" class="icon-inline"></i> Login
+          </a>
+        @endif
+      </nav>
+
+      {{-- Mobile Menu Toggle --}}
+      <button class="navbar-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span class="icon-holder" data-icon-state="menu">
+          <i data-lucide="menu" class="menu-icon"></i>
+        </span>
+      </button>
     </div>
-    <nav>
-      <a href="{{route('homepage.index')}}">Home</a>
-      <a href="{{route('hotels.index')}}">Browse Hotels</a>
+
+    {{-- Mobile Menu --}}
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="{{ route('homepage.index') }}">Home</a>
+      <a href="{{ route('hotels.index') }}">Browse Hotels</a>
       @if (auth()->check())
-        <a href="{{route('profile.index')}}" class="login-btn">Profile</a>
+        <a href="{{ route('profile.index') }}" class="login-btn">
+          <i data-lucide="user" class="icon-inline"></i> Profile
+        </a>
       @else
-        <a href="{{route('login')}}" class="login-btn">Login</a>
+        <a href="{{ route('login') }}" class="login-btn">
+          <i data-lucide="log-in" class="icon-inline"></i> Login
+        </a>
       @endif
-    </nav>
+    </div>
   </header>
 
   @yield('content')
+  
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p class="footer-copy">&copy; 2023 Our Hotel. All rights reserved.</p>
 
-  <footer>
-    <p>&copy; 2023 Our Hotel. All rights reserved.</p>
-    <a href="{{route('homepage.index')}}" class="footer-link">&cir; Home</a>
-    <a href="{{route('hotels.index')}}" class="footer-link">&cir; Browse Hotels</a>
-      @if (auth()->check())
-        <a href="{{route('profile.index')}}" class="footer-link">&cir; Profile</a>
-      @else
-      <a href="{{route('login')}}" class="footer-link">&cir; Login</a>
-      @endif
+      <div class="footer-links">
+        <a href="{{ route('homepage.index') }}" class="footer-link">
+          <span class="dot">&bull;</span> Home
+        </a>
+        <a href="{{ route('hotels.index') }}" class="footer-link">
+          <span class="dot">&bull;</span> Browse Hotels
+        </a>
+        @if (auth()->check())
+          <a href="{{ route('profile.index') }}" class="footer-link">
+            <span class="dot">&bull;</span> Profile
+          </a>
+        @else
+          <a href="{{ route('login') }}" class="footer-link">
+            <span class="dot">&bull;</span> Login
+          </a>
+        @endif
+      </div>
+    </div>
   </footer>
   
   <script src="{{asset('scripts/lucide.js')}}"></script>
@@ -107,6 +154,21 @@
         cancelButtonText: 'No'
       }).then(result => result.isConfirmed);
     }
+
+  $(function () {
+    $('#mobileToggle').on('click', function () {
+      const $menu = $('#mobileMenu');
+      const isVisible = $menu.css('display') === 'flex';
+      const newIcon = isVisible ? 'menu' : 'x';
+
+      // Toggle menu
+      $menu.css('display', isVisible ? 'none' : 'flex');
+
+      // Replace icon
+      $(this).html(`<i data-lucide="${newIcon}" class="menu-icon"></i>`);
+      lucide.createIcons();
+    });
+  });
 
   </script>
   @yield('scripts')

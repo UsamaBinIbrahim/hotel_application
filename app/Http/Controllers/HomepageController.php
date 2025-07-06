@@ -11,7 +11,7 @@ class HomepageController extends Controller
         $top_hotels = Hotel::select('id', 'name', 'location', 'price_per_night', 'main_image')
             ->withCount('bookings')
             ->orderByDesc('bookings_count')
-            ->take(3)
+            ->take(6)
             ->get();
         return view('homepage', compact('top_hotels'));
     }

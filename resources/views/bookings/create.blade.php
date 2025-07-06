@@ -127,5 +127,7 @@
         }
       });
     });
+
+    lucide.createIcons();
   </script>
 @endsection
