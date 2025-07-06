@@ -92,6 +92,22 @@
         cancelButtonText: 'Cancel'
       }).then(result =>  result.isConfirmed);
     }
+
+    function alertWarning(options) {
+      if(!options || typeof options !== 'object') throw new Error('alertWarning() requires a plain object parameter.');
+      if(!options.text) throw new Error('alertWarning() requires text key of the plain object parameter.');
+      return Swal.fire({
+        icon: 'warning',
+        title: 'Warning',
+        text: options.text,
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then(result => result.isConfirmed);
+    }
+
   </script>
   @yield('scripts')
 </body>

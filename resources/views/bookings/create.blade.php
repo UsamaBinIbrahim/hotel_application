@@ -120,7 +120,8 @@
 
       $('#booking_form').on('submit',async function(e) {
         e.preventDefault();
-        const isConfirmed = await alertConfirm({text: 'Please confirm booking.'});
+        const totalCost = $('#total-cost').text();
+        const isConfirmed = await alertConfirm({text: `Booking total cost: $${totalCost}.\nPlease confirm booking.`});
         if(isConfirmed) {
           this.submit();
         }

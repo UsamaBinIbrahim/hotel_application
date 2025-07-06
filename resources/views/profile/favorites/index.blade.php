@@ -28,7 +28,7 @@
               <i data-lucide="eye"></i> View Details
             </button>
               <button data-hotel-id="{{$hotel->id}}" class="remove-btn">
-                <i data-lucide="heart-off"></i> Remove {{$hotel->id}}
+                <i data-lucide="heart-off"></i> Remove
               </button>
           </div>
         </div>

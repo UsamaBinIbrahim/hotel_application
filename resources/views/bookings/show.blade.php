@@ -48,20 +48,25 @@
     $(document).ready(function() {
       lucide.createIcons();
 
-      $('#delete-btn').on('click', function() {
+      $('#delete-btn').on('click',async function() {
         $('#delete-btn').attr('disabled', true);
-        const url = '{{route('bookings.destroy', ['booking' => ':bookingId'])}}'.replace(':bookingId', {{$booking->id}})
-        
+        const url = '{{route('bookings.destroy', ['booking' => ':bookingId'])}}'.replace(':bookingId', {{$booking->id}});
+        const bookingStatus = '{{$booking->status}}';
+        const action = (() => {
+          if(bookingStatus === 'completed') return 'deleted';
+          if(bookingStatus === 'upcoming') return 'canceled';
+          return '';
+        })();
+        const isConfirmed = await alertWarning({text: 'Are you sure you want to perform this action?'});
+        if(!isConfirmed) {
+          $('#delete-btn').removeAttr('disabled');
+          return;
+        }
+
         $.ajax({
           url: url,
           method: 'DELETE',
           success: function(response) {
-            const bookingStatus = '{{$booking->status}}';
-            const action = (() => {
-              if(bookingStatus === 'completed') return 'deleted';
-              if(bookingStatus === 'upcoming') return 'canceled';
-              return '';
-            })();
             alertSuccess({title: 'Booking ' + action, text: 'Booking has been ' + action + ' successfully.'});
             setTimeout(() => {
               response.bookings_left > 0
