@@ -56,7 +56,7 @@
         </ul>
       </div>
       <label for="adults">Number of Adults:</label>
-      <input type="number" id="adults" name="adults" class="guests-number" min="1" value="1" required>
+      <input type="number" id="adults" name="adults" class="guests-number" min="1" value="{{old('adults') ?? 1}}" required>
       <div class="errors">
         <ul>
           @foreach ($errors->get('adults') as $message)
@@ -65,7 +65,7 @@
         </ul>
       </div>
       <label for="children">Number of Children:</label>
-      <input type="number" id="children" name="children" class="guests-number" min="0" value="0">
+      <input type="number" id="children" name="children" class="guests-number" min="0" value="{{old('children') ?? 0}}">
       <div class="errors">
         <ul>
           @foreach ($errors->get('guests_sum') as $message)
@@ -95,17 +95,10 @@
         const checkInTime = new Date($('#check_in').val()).getTime();
         const checkOutTime = new Date($('#check_out').val()).getTime();
         nights = (checkOutTime - checkInTime) / (1000 * 60 * 60 * 24);
-        console.log(`Nights: ${nights}`);
         $('.guests-number').change();
       });
       
       $('.guests-number').on('change', function() {
-        if(isNaN(nights)) {
-          $('#total-cost').text(pricePerNight);
-          return;
-        }
-
-        console.log($(this).val());
         const adults = $('#adults').val();
         const children = $('#children').val();
         
@@ -115,7 +108,7 @@
         var extraAdults = Math.min(adults - baseAdults);
         var extraChildren = children - baseChildren;
         
-        if(nights <= 0) {nights = 1;}
+        if(isNaN(nights) || nights <= 0) {nights = 1;}
         const totalCost = nights
          * (pricePerNight
           + (extraAdultFee * extraAdults)
@@ -123,6 +116,14 @@
         );
 
         $('#total-cost').text(totalCost);
+      });
+
+      $('#booking_form').on('submit',async function(e) {
+        e.preventDefault();
+        const isConfirmed = await alertConfirm({text: 'Please confirm booking.'});
+        if(isConfirmed) {
+          this.submit();
+        }
       });
     });
   </script>

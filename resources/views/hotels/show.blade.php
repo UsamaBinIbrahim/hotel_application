@@ -62,7 +62,7 @@
       </div>
 
       <button type="button" class="book-now" onclick="window.location.href='{{route('bookings.create', $hotel->id)}}'">
-          Book Now for ${{$hotel->price_per_night}}
+          Book Now Starting From ${{$hotel->price_per_night}}
       </button>
     </div>
     <div class="reviews">

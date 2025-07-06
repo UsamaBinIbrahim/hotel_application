@@ -77,6 +77,21 @@
         position: 'top-end'
       });
     }
+
+    function alertConfirm(options) {
+      if(!options || typeof options !== 'object') throw new Error('alertConfirm() requires a plain object parameter.');
+      if(!options.text) throw new Error('alertConfirm() requires text key of the plain object parameter.');
+      return Swal.fire({
+        icon: 'question',
+        title: 'Confirm',
+        text: options.text,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel'
+      }).then(result =>  result.isConfirmed);
+    }
   </script>
   @yield('scripts')
 </body>

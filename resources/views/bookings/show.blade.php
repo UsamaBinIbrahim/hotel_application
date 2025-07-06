@@ -69,7 +69,8 @@
                 : window.location.href='{{route('profile.index')}}';
             }, 1000);
           },
-          error: function(error) {
+          error: function() {
+            alertError();
           }
         });
       });

@@ -64,9 +64,6 @@
           const newUrl = `{{route('hotels.index')}}?filter=${encodeURIComponent(filter)}`;
           window.history.pushState({}, '', newUrl);
           $('.hotels-container').html(response.html);
-        },
-        error: function(error) {
-          console.log(error.message);
         }
       });
       
@@ -88,7 +85,6 @@
       const currentUrl = window.location.href;      
       const url = '{{route('hotels.show', ['hotel' => ':hotelId'])}}'.replace(':hotelId', hotelId) 
       + `?back=${encodeURIComponent(currentUrl)}`;
-      console.log(`current url: ${currentUrl}\nurl: ${url}`);
       window.location.href = url;
     }
   </script>
