@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Fortify\UpdateUserProfileInformation;
-use App\Models\Hotel;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -45,5 +44,9 @@ class ProfileController extends Controller
         return response()->json([
             'status' => 'no changes'
         ]);
+    }
+
+    public function editPassword() {
+        return view('profile.password');
     }
 }

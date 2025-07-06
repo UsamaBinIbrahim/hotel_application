@@ -80,7 +80,7 @@
             <strong>{{$user->created_at->toDateString()}}</strong>
           </div>
           <a href="{{route('profile.edit')}}" class="button green outline full"><i data-lucide="edit"></i>Edit Profile</a>
-          <a href="#" class="button gray outline full"><i data-lucide="lock"></i>Change Password</a>
+          <a href="{{route('user-password.edit')}}" class="button gray outline full"><i data-lucide="lock"></i>Change Password</a>
         </div>
       </div>
 
