@@ -6,23 +6,6 @@
 
 @section('style')
   <link rel="stylesheet" href="{{ asset('styles/profile/edit.css') }}">
-	<style>
-		.alert.error {
-  background-color: #fef2f2;
-  color: #991b1b;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.alert.success {
-  background-color: #ecfdf5;
-  color: #065f46;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-}
-	</style>
 @endsection
 
 @section('content')
@@ -42,7 +25,7 @@
     </div>
 
     @error('current_password', 'updatePassword')
-			<div class="alert error">{{ $message }}</div>
+			<div class="alert-error">{{ $message }}</div>
     @enderror
 
     <div class="form-group">
@@ -51,7 +34,7 @@
     </div>
 
     @error('password', 'updatePassword')
-			<div class="alert error">{{ $message }}</div>
+			<div class="alert-error">{{ $message }}</div>
     @enderror
 
     <div class="form-group">
@@ -60,7 +43,7 @@
     </div>
 
     @error('password_confirmation', 'updatePassword')
-			<div class="alert error">{{ $message }}</div>
+			<div class="alert-error">{{ $message }}</div>
     @enderror
 
     <div class="form-actions">

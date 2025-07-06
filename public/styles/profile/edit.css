@@ -60,6 +60,14 @@ body {
   border-color: #2563eb;
 }
 
+.alert-error {
+  background-color: #fef2f2;
+  color: #991b1b;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
 .form-actions {
   display: flex;
   justify-content: space-between;
