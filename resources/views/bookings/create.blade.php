@@ -38,7 +38,7 @@
         </ul>
       </div>
       <label for="check_in">Check-in Date:</label>
-      <input type="date" id="check_in" name="check_in" value="{{old('check_in')}}" required />
+      <input type="date" id="check_in" name="check_in" class="check-date" value="{{old('check_in')}}" required />
       <div class="errors">
         <ul>
           @foreach ($errors->get('check_in') as $message)
@@ -47,7 +47,7 @@
         </ul>
       </div>
       <label for="check_out">Check-out Date:</label>
-      <input type="date" id="check_out" name="check_out" value="{{old('check_out')}}" required />
+      <input type="date" id="check_out" name="check_out" class="check-date" value="{{old('check_out')}}" required />
       <div class="errors">
         <ul>
           @foreach ($errors->get('check_out') as $message)
@@ -56,7 +56,7 @@
         </ul>
       </div>
       <label for="adults">Number of Adults:</label>
-      <input type="number" id="adults" name="adults" min="1" value="1" required>
+      <input type="number" id="adults" name="adults" class="guests-number" min="1" value="1" required>
       <div class="errors">
         <ul>
           @foreach ($errors->get('adults') as $message)
@@ -65,7 +65,7 @@
         </ul>
       </div>
       <label for="children">Number of Children:</label>
-      <input type="number" id="children" name="children" min="0" value="0">
+      <input type="number" id="children" name="children" class="guests-number" min="0" value="0">
       <div class="errors">
         <ul>
           @foreach ($errors->get('guests_sum') as $message)
@@ -76,22 +76,54 @@
           @endforeach
         </ul>
       </div>
-      <button type="submit">Confirm Booking</button>
+      <button type="submit">Confirm Booking: $<span id="total-cost">{{$hotel->price_per_night}}</span></button>
     </form>
   </div>
+@endsection
 
-  {{-- <script>
-    document.getElementById('bookingForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = document.getElementById('fullName').value;
-      const email = document.getElementById('email').value;
-      const checkIn = document.getElementById('checkIn').value;
-      const checkOut = document.getElementById('checkOut').value;
-      const guests = document.getElementById('guests').value;
+@section('scripts')
+  <script>
+    $(document).ready(function() {
+      const pricePerNight = {{$hotel->price_per_night}};
+      const baseGuestCount = {{$hotel->base_guest_count}};
+      const extraAdultFee = {{$hotel->extra_adult_fee}};
+      const extraChildFee = {{$hotel->extra_child_fee}};
 
-      // Display confirmation message and redirect
-      alert(`Booking confirmed for ${name} from ${checkIn} to ${checkOut}.\nGuests: ${guests}\nConfirmation sent to: ${email}`);
-      window.location.href = "confirmation.html"; // Redirect to confirmation page after booking
+      var nights;
+
+      $('.check-date').on('change', function() {
+        const checkInTime = new Date($('#check_in').val()).getTime();
+        const checkOutTime = new Date($('#check_out').val()).getTime();
+        nights = (checkOutTime - checkInTime) / (1000 * 60 * 60 * 24);
+        console.log(`Nights: ${nights}`);
+        $('.guests-number').change();
+      });
+      
+      $('.guests-number').on('change', function() {
+        if(isNaN(nights)) {
+          $('#total-cost').text(pricePerNight);
+          return;
+        }
+
+        console.log($(this).val());
+        const adults = $('#adults').val();
+        const children = $('#children').val();
+        
+        var baseAdults = Math.min(adults, baseGuestCount);
+        var baseChildren = Math.min(children, baseGuestCount - baseAdults);
+        
+        var extraAdults = Math.min(adults - baseAdults);
+        var extraChildren = children - baseChildren;
+        
+        if(nights <= 0) {nights = 1;}
+        const totalCost = nights
+         * (pricePerNight
+          + (extraAdultFee * extraAdults)
+          + (extraChildFee * extraChildren)
+        );
+
+        $('#total-cost').text(totalCost);
+      });
     });
-  </script> --}}
+  </script>
 @endsection

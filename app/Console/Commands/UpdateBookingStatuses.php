@@ -39,5 +39,6 @@ class UpdateBookingStatuses extends Command
             ->update(['status' => 'completed']);
 
         $this->info('Booking statuses updated successfully.');
+        info('Booking statuses updated successfully.');
     }
 }
