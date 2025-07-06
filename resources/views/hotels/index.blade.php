@@ -19,7 +19,7 @@
     <input type="text" name="search_input" id="search-input" value="{{$filter}}" placeholder="Search by location or name..." />
     <button id="search-btn"><i data-lucide="search"></i></button>
       <button id="clear-filter-btn" title="Clear Filter" {{$filter && $filter !== '' ? '' : "style=display:none;"}}>
-        <i data-lucide="x-circle"></i>
+        <i data-lucide="eraser"></i>
       </button>
   </div>
 

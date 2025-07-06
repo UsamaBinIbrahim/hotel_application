@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Validator;
 
 class HotelController extends Controller
 {
-    public function homepage() {
-        $hotels = Hotel::select('id', 'name', 'location', 'price_per_night', 'main_image')->take(3)->get();
-        return view('homepage', ['hotels' => $hotels]);
-    }
-
     public function index(Request $request) {
         $filter = trim($request->query('filter', ''));
         $hotels = self::filterQuery($filter);
@@ -29,7 +24,7 @@ class HotelController extends Controller
         $filter = trim($request->query('filter', ''));
         $filtered_hotels = self::filterQuery($filter);
         $html = view('hotels.components.filtered_hotels', compact('filtered_hotels'))->render();
-        return response()->json(['html' => $html]);
+        return response()->json(compact('html'));
     }
 
     private function filterQuery($filter) {

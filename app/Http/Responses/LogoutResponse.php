@@ -15,6 +15,6 @@ class LogoutResponse implements FilamentLogoutResponseContract, FortifyLogoutRes
             ]);
         }
 
-        return to_route('homepage');
+        return to_route('homepage.index');
     }
 }

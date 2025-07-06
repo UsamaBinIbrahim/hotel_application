@@ -15,7 +15,7 @@
         <p>Find and book your perfect stay</p>
     </div>
     <nav>
-      <a href="{{route('homepage')}}">Home</a>
+      <a href="{{route('homepage.index')}}">Home</a>
       <a href="{{route('hotels.index')}}">Browse Hotels</a>
       @if (auth()->check())
         <a href="{{route('profile.index')}}" class="login-btn">Profile</a>
@@ -29,7 +29,7 @@
 
   <footer>
     <p>&copy; 2023 Our Hotel. All rights reserved.</p>
-    <a href="{{route('homepage')}}" class="footer-link">&cir; Home</a>
+    <a href="{{route('homepage.index')}}" class="footer-link">&cir; Home</a>
     <a href="{{route('hotels.index')}}" class="footer-link">&cir; Browse Hotels</a>
       @if (auth()->check())
         <a href="{{route('profile.index')}}" class="footer-link">&cir; Profile</a>

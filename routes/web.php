@@ -3,10 +3,11 @@
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\FavoriteHotelController;
+use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HotelController::class, 'homepage'])->name('homepage');
+Route::get('/', [HomepageController::class, 'index'])->name('homepage.index');
 
 Route::prefix('/hotels')->group(function() {
     Route::get('/', [HotelController::class, 'index'])->name('hotels.index');

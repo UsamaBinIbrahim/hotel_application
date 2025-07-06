@@ -7,6 +7,6 @@ use Illuminate\Http\RedirectResponse;
 class AuthRedirectResponse
 {
     public function redirect(): RedirectResponse {
-        return redirect()->intended(route('homepage'));
+        return redirect()->intended(route('homepage.index'));
     }
 }
