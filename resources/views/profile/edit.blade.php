@@ -49,13 +49,15 @@
       const url = '{{route('profile.update')}}';
       $.ajax({
         url: url,
-        method: 'PUT',
+        method: 'PATCH',
         data: {
           name: $('#name').val(),
           email: $('#email').val()
         },
         success: function(response) {
-          alertSuccess({title: 'Profile updated!', text: 'Your profile has been updated successfully.'});
+          if(response.status === 'success') {
+            alertSuccess({title: 'Profile updated!', text: 'Your profile has been updated successfully.'});
+          }
         },
         error: function(error) {
           alertError();

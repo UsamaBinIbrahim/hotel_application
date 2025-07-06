@@ -26,9 +26,24 @@ class ProfileController extends Controller
     }
 
     public function update(Request $request, UpdateUserProfileInformation $updater) {
-        $updater->update(auth()->user(), $request->only('name', 'email'));
+        $user = auth()->user();
+        
+        $validated = $request->validate([
+            'name' => 'required|max:255|string',
+            'email' => 'required|max:255|email|string|unique:users,email,' . $user->id
+        ]);
+        
+        $user->fill($validated);
+
+        if($user->isDirty()) {
+            $updater->update($user, $validated);
+            return response()->json([
+                'status' => 'success'
+            ]);
+        }
+
         return response()->json([
-            'status' => 'success'
+            'status' => 'no changes'
         ]);
     }
 }
