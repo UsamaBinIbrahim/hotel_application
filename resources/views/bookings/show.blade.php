@@ -22,8 +22,8 @@
     <div class="info-section">
       <h2>Booking Information</h2>
       <div class="info-pair"><strong>Status:</strong> <span class="status {{strtolower($booking->status)}}">{{$booking->status}}</span></div>
-      <div class="info-pair"><strong>Check-in Date:</strong> {{$booking->check_in_date}}</div>
-      <div class="info-pair"><strong>Check-out Date:</strong> {{$booking->check_out_date}}</div>
+      <div class="info-pair"><strong>Check-in Date:</strong> {{$booking->check_in_date->format('Y-m-d')}}</div>
+      <div class="info-pair"><strong>Check-out Date:</strong> {{$booking->check_out_date->format('Y-m-d')}}</div>
       <div class="info-pair"><strong>Guests:</strong> {{$booking->adults}} {{'Adults'}}@if ($booking->children > 0), {{$booking->children}} Child @endif
       </div>
       <div class="info-pair"><strong>Total Price:</strong> ${{$booking->total_price}}</div>

@@ -19,6 +19,11 @@ class Booking extends Model
         'children',
     ];
 
+    protected $casts = [
+        'check_in_date' => 'date',
+        'check_out_date' => 'date'
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }

@@ -1,11 +1,11 @@
 @extends('layouts.auth')
 
 @section('title')
-    Login
+    Sign In
 @endsection
 
 @section('heading')
-    Login
+    Sign In
 @endsection
 
 @section('form')
@@ -37,9 +37,9 @@
                 @endforeach
             </ul>
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">Sign In</button>
         <div class="link">
-            <p>Don't have an account? <a href="{{route('register')}}">Register</a></p>
+            <p>Don't have an account? <a href="{{route('register')}}">Create one</a></p>
         </div>
     </form>
 @endsection

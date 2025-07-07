@@ -1,8 +1,6 @@
 body {
-    background: url('/storage/hero/hotel_pool.jpg') no-repeat center center / cover;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4;
     overflow-x: hidden;
 }
 

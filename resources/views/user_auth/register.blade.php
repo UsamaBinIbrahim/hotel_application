@@ -38,7 +38,7 @@
         <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password" autocomplete="current-password" required />
         <button type="submit">Register</button>
         <div class="link">
-            <p>Already have an account? <a href="{{route('login')}}">Login</a></p>
+            <p>Already have an account? <a href="{{route('login')}}">Sign In</a></p>
         </div>
     </form>
 @endsection

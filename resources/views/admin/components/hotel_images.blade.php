@@ -1,5 +1,19 @@
-<div class="flex flex-wrap gap-2">
-    @foreach($getState() as $image)
-        <img src="{{ asset('storage/' . $image) }}" alt="Hotel Image" class="h-12 w-12 object-cover">
-    @endforeach
+<head>
+    <link rel="stylesheet" href="{{asset('/styles/hotels/show.css')}}">
+</head>
+
+<div class="images-container">
+    <div class="slider-wrapper">
+        <div class="slider">
+        @foreach ($getState() as $image)
+            <img id="slide-{{ $image }}" src="{{ asset('storage/' . $image) }}" alt="Hotel Image" />
+        @endforeach
+        </div>
+
+        <div class="slider-nav">
+        @foreach ($getState() as $image)
+            <a href="#slide-{{ $image }}"></a>
+        @endforeach
+        </div>
+    </div>
 </div>

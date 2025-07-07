@@ -30,7 +30,7 @@
           </a>
         @else
           <a href="{{ route('login') }}" class="login-btn">
-            <i data-lucide="log-in" class="icon-inline"></i> Login
+            <i data-lucide="log-in" class="icon-inline"></i> Sign In
           </a>
         @endif
       </nav>
@@ -53,7 +53,7 @@
         </a>
       @else
         <a href="{{ route('login') }}" class="login-btn">
-          <i data-lucide="log-in" class="icon-inline"></i> Login
+          <i data-lucide="log-in" class="icon-inline"></i> Sign In
         </a>
       @endif
     </div>
@@ -78,7 +78,7 @@
           </a>
         @else
           <a href="{{ route('login') }}" class="footer-link">
-            <span class="dot">&bull;</span> Login
+            <span class="dot">&bull;</span> Sign In
           </a>
         @endif
       </div>
@@ -106,7 +106,7 @@
         icon: 'success',
         title: options.title,
         text: options.text,
-        timer: 2000,
+        timer: 3500,
         showConfirmButton: false,
         toast: true,
         position: 'top-end'
@@ -118,7 +118,7 @@
         icon: 'error',
         title: 'Oops...',
         text: 'Something went wrong!',
-        timer: 2500,
+        timer: 3500,
         showConfirmButton: false,
         toast: true,
         position: 'top-end'

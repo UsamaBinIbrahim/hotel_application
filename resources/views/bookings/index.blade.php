@@ -22,8 +22,8 @@
         <div class="booking-info">
           <h3>{{ $booking->hotel->name }}</h3>
           <p><i data-lucide="map-pin"></i> {{ $booking->hotel->location }}</p>
-          <p><strong>Check-in:</strong> {{ $booking->check_in_date }}</p>
-          <p><strong>Check-out:</strong> {{ $booking->check_out_date }}</p>
+          <p><strong>Check-in:</strong> {{ $booking->check_in_date->format('Y-m-d') }}</p>
+          <p><strong>Check-out:</strong> {{ $booking->check_out_date->format('Y-m-d') }}</p>
           <p><strong>Status:</strong> <span class="status {{ strtolower($booking->status) }}">{{ $booking->status }}</span></p>
           <button onclick="window.location.href='{{ route('bookings.show', $booking->id) }}'">
             <i data-lucide="eye"></i> View Details

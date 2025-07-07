@@ -17,6 +17,8 @@ use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
@@ -99,7 +101,8 @@ class HotelResource extends Resource
                     ->toggleable(),
                 TextColumn::make('description')
                     ->searchable()
-                    ->toggleable(),
+                    ->toggleable()
+                    ->wrap(),
                 TextColumn::make('amenities.name')
                     ->searchable()
                     ->badge()
@@ -126,19 +129,19 @@ class HotelResource extends Resource
                 TextColumn::make('max_guests')
                     ->numeric()
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('base_guest_count')
                     ->numeric()
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('extra_adult_fee')
                     ->numeric()
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('extra_child_fee')
                     ->numeric()
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->label('Published at')

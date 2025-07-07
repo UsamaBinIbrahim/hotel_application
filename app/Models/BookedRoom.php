@@ -11,6 +11,10 @@ class BookedRoom extends Model
         'date'
     ];
 
+    protected $casts = [
+        'date' => 'date'
+    ];
+
     public function hotel() {
         return $this->belongsTo(Hotel::class);
     }

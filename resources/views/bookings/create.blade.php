@@ -6,6 +6,11 @@
 
 @section('style')
   <link rel="stylesheet" href="{{asset('/styles/bookings/create.css')}}">
+  <style>
+    body {
+      background: url('{{asset('/images/hotel_pool.jpg')}}') no-repeat center center / cover;
+    }
+  </style>
 @endsection
 
 @section('content')
