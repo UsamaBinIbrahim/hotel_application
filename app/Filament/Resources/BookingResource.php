@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BookingResource\Pages;
 use App\Models\Booking;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
@@ -17,6 +16,8 @@ use Filament\Tables\Table;
 class BookingResource extends Resource
 {
     protected static ?string $model = Booking::class;
+
+    protected static ?string $navigationGroup = 'Reservation';
 
     protected static ?string $navigationIcon = 'heroicon-o-bookmark';
 

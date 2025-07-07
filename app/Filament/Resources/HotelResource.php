@@ -17,15 +17,14 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ViewColumn;
-use Filament\Tables\Enums\FiltersLayout;
-use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class HotelResource extends Resource
 {
     protected static ?string $model = Hotel::class;
+
+    protected static ?string $navigationGroup = 'Hotel';
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
 

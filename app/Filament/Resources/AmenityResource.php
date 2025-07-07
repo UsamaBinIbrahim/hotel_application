@@ -15,6 +15,8 @@ class AmenityResource extends Resource
 {
     protected static ?string $model = Amenity::class;
 
+    protected static ?string $navigationGroup = 'Hotel';
+
     protected static ?string $navigationIcon = 'heroicon-o-wifi';
 
     protected static ?string $modelLabel = 'Hotel Amenities';
