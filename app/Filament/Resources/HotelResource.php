@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\HotelResource\Pages;
 use App\Models\Hotel;
+use App\Tables\Columns\HotelSecondaryImages;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
@@ -110,13 +111,10 @@ class HotelResource extends Resource
                 ImageColumn::make('main_image')
                     ->disk('public') // important if stored in storage/app/public
                     ->getStateUsing(fn ($record) => asset('storage/' . $record->main_image)) // Storage::disk()->url() failed here
-                    ->visibility('visible')
-                    ->size(60) // or ->square()
+                    ->size(80) // or ->square()
                     ->toggleable(),
-                ViewColumn::make('images')
-                    ->label('Images')
-                    ->view('admin.components.hotel_images')
-                    ->wrapHeader()
+                HotelSecondaryImages::make('images')
+                    ->label('Secondary Images')
                     ->toggleable(),
                 TextColumn::make('price_per_night')
                     ->numeric()
