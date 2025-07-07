@@ -130,7 +130,19 @@
         <p>Favorite Hotels</p>
       </div>
     </div>
+
+    {{-- Delete Account --}}
+    <div class="delete-account-bar">
+      <form method="POST" action="{{route('profile.destroy')}}" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="delete-account-btn">
+          <i data-lucide="trash-2"></i> Delete Account
+        </button>
+      </form>
+    </div>
   </div>
+
 @endsection
 
 @section('scripts')
@@ -143,6 +155,10 @@
         const url = '{{route('hotels.show', ['hotel' => ':hotelId', 'back' => url()->current()])}}'.replace(':hotelId', $(this).data('hotel-id'));
         window.location.href=url;
       });
+      
+      @if(session('account_delete') === 'fail')
+        alertError();
+      @endif
       
       lucide.createIcons();
     });

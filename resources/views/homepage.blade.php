@@ -109,6 +109,10 @@
 @section('scripts')
   <script>
     $(document).ready(function() {
+      @if(session('account_delete') === 'success')
+        alertSuccess({title: 'Account Deleted', text: 'Account has deleted successfully'});
+      @endif
+
       lucide.createIcons();
     })
   </script>

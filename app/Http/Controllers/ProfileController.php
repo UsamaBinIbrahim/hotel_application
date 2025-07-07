@@ -49,4 +49,18 @@ class ProfileController extends Controller
     public function editPassword() {
         return view('profile.password');
     }
+
+    public function destroy() {
+        $user = auth()->user();
+        auth()->logout();
+        $user->delete();
+        $account_delete = 'success';
+
+        if($user->exists) {
+            return back()->with('account_delete', 'fail');
+        }
+
+        return to_route('homepage.index')->with(compact('account_delete'));
+
+    }
 }

@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function() {
         Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
         Route::get('/password', [ProfileController::class, 'editPassword'])->name('user-password.edit');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
 
     Route::prefix('/favorites')->group(function() {
