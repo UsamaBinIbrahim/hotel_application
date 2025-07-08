@@ -62,7 +62,7 @@
   </div>
 
   <div class="show-all-container">
-    <button class="show-all-button">
+    <button onclick="window.location.href='{{route('hotels.index')}}'" class="show-all-button">
       Show All Hotels
       <span class="arrow">→</span>
     </button>

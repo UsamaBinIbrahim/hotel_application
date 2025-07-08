@@ -80,7 +80,7 @@ class HotelResource extends Resource
                                 ->multiple()
                                 ->image()
                                 ->required()
-                                ->maxFiles(3)
+                                ->maxFiles(6)
                                 ->directory('hotels/images')
                                 ->getUploadedFileNameForStorageUsing(
                                     fn (TemporaryUploadedFile $file) => self::getUploadedFileNameFromStorage($file)
@@ -105,8 +105,7 @@ class HotelResource extends Resource
                     ->toggleable(),
                 TextColumn::make('description')
                     ->searchable()
-                    ->toggleable()
-                    ->wrap(),
+                    ->toggleable(),
                 TextColumn::make('amenities.name')
                     ->searchable()
                     ->badge()

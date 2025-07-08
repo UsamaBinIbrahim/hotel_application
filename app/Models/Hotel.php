@@ -15,6 +15,10 @@ class Hotel extends Model
         'images',
         'price_per_night',
         'total_rooms',
+        'max_guests',
+        'base_guest_count',
+        'extra_adult_fee',
+        'extra_child_fee',
     ];
 
     protected $casts = [
