@@ -17,7 +17,11 @@ class AmenityResource extends Resource
 
     protected static ?string $navigationGroup = 'Hotel';
 
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $navigationIcon = 'heroicon-o-wifi';
+
+    protected static ?string $activeNavigationIcon = 'heroicon-s-wifi';
 
     protected static ?string $modelLabel = 'Hotel Amenities';
 

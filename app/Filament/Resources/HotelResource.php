@@ -26,7 +26,11 @@ class HotelResource extends Resource
 
     protected static ?string $navigationGroup = 'Hotel';
 
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
+
+        protected static ?string $activeNavigationIcon = 'heroicon-s-building-office';
 
     public static function form(Form $form): Form
     {

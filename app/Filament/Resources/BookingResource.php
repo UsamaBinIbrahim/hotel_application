@@ -19,7 +19,11 @@ class BookingResource extends Resource
 
     protected static ?string $navigationGroup = 'Reservation';
 
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $navigationIcon = 'heroicon-o-bookmark';
+
+        protected static ?string $activeNavigationIcon = 'heroicon-s-bookmark';
 
     public static function form(Form $form): Form
     {
@@ -123,7 +127,7 @@ class BookingResource extends Resource
             ])
             ->bulkActions([
                 //
-            ]);
+            ])->recordUrl(null);;
     }
 
     public static function getRelations(): array

@@ -2,6 +2,11 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\BookingResource\Widgets\BookingRevenuesPerMonthChart;
+use App\Filament\Resources\BookingResource\Widgets\BookingsPerMonthChart;
+use App\Filament\Resources\FavoriteHotelResource\Widgets\FavoriteHotelStatsWidget;
+use App\Filament\Resources\UserResource\Widgets\UsersPerMonthChart;
+use App\Filament\Resources\UserResource\Widgets\UsersStatsWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -41,8 +46,11 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                // Widgets\AccountWidget::class,
-                // Widgets\FilamentInfoWidget::class,
+                UsersStatsWidget::class,
+                UsersPerMonthChart::class,
+                FavoriteHotelStatsWidget::class,
+                BookingsPerMonthChart::class,
+                BookingRevenuesPerMonthChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,

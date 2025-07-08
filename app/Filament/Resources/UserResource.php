@@ -3,25 +3,26 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\UserResource\Widgets\UsersStatsWidget;
 use App\Models\User;
-use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
+    protected static ?string $navigationGroup = 'User';
+
+    protected static ?int $navigationSort = 1;
+    
     protected static ?string $navigationIcon = 'heroicon-o-users';
+    
+    protected static ?string $activeNavigationIcon = 'heroicon-s-users';
 
     public static function form(Form $form): Form
     {
@@ -57,7 +58,7 @@ class UserResource extends Resource
                     ])
                     ->query(fn ($query, array $data)
                         => $query
-                            ->when($data['created_at'], fn ($q, $date) => $q->whereDate('created_at', '>=', $date))
+                            ->when($data['created_at'], fn ($q, $date) => $q->whereDate('created_at', '<=', $date))
                     )
                     ], layout: FiltersLayout::AboveContent)
             ->actions([
@@ -65,8 +66,15 @@ class UserResource extends Resource
             ])
             ->bulkActions([
                 //
-            ]);
+            ])->recordUrl(null);;
     }
+
+    public static function getWidgets(): array
+    {
+        return [
+            UsersStatsWidget::class
+        ];
+    } 
 
     public static function getRelations(): array
     {

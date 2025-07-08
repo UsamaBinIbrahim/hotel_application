@@ -18,7 +18,11 @@ class BookedRoomResource extends Resource
 
     protected static ?string $navigationGroup = 'Reservation';
 
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $navigationIcon = 'heroicon-o-calendar';
+
+        protected static ?string $activeNavigationIcon = 'heroicon-s-calendar';
 
     protected static ?string $modelLabel = 'Rooms Booked Per Day';
 
@@ -62,7 +66,7 @@ class BookedRoomResource extends Resource
             ])
             ->bulkActions([
                 //
-            ]);
+            ])->recordUrl(null);;
     }
 
     public static function getRelations(): array

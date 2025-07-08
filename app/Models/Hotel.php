@@ -37,6 +37,10 @@ class Hotel extends Model
         return $this->belognsToMany(User::class, 'favorite_hotels')->withTimestamps();
     }
 
+    public function favorites() {
+        return $this->hasMany(FavoriteHotel::class);
+    }
+
     protected static function booted(): void {
         static::updating(function ($hotel) {
             self::updateImages($hotel);

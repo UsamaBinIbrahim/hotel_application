@@ -33,9 +33,9 @@
       <a href="{{ route('bookings.index') }}" class="button gray full">
         <i data-lucide="arrow-left"></i> Go Back
       </a>
-      @if ($booking->status == 'upcoming' || $booking->status == 'completed')
+      @if ($booking->status == 'upcoming')
         <button type="button" class="button red full" id="delete-btn">
-          <i data-lucide="trash-2"></i> {{$booking->status == 'completed'? 'Delete': 'Cancel'}} Booking
+          <i data-lucide="trash-2"></i> Cancel Booking
         </button>
       @endif
     </div>
@@ -48,7 +48,7 @@
     $(document).ready(function() {
       lucide.createIcons();
 
-      $('#delete-btn').on('click',async function() {
+      $('#delete-btn').on('click', async function() {
         $('#delete-btn').attr('disabled', true);
         const url = '{{route('bookings.destroy', ['booking' => ':bookingId'])}}'.replace(':bookingId', {{$booking->id}});
         const isConfirmed = await alertWarning({text: 'Are you sure you want to perform this action?'});
