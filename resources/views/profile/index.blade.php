@@ -25,7 +25,7 @@
     
     <!-- Header -->
     <div class="header">
-      <h1>Welcome back, {{$user->name}}! 👋</h1>
+      <h1>Welcome back, {{explode(' ', $user->name)[0]}}! 👋</h1>
       <p>Manage your bookings, update your profile, and discover your favorite destinations</p>
     </div>
 
