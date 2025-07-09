@@ -11,6 +11,7 @@ use App\Http\Responses\LogoutResponse;
 use Laravel\Fortify\Contracts\LogoutResponse as FortifyLogoutResponse;
 use Filament\Http\Responses\Auth\Contracts\LogoutResponse as FilamentLogoutResponse;
 use Filament\Facades\Filament;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -48,5 +49,7 @@ class AppServiceProvider extends ServiceProvider
 
             auth()->shouldUse('admin');
         });
+
+        Model::automaticallyEagerLoadRelationships();
     }
 }

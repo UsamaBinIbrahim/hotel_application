@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="booking-container">
-  <div class="booking-header">
+  <div class="booking-header" onclick="window.location.href='{{route('hotels.show', ['hotel' => $booking->hotel->id, 'back' => url()->current()])}}'">
     <img src="{{asset('storage/' . $booking->hotel->main_image)}}" alt="{{$booking->hotel->name}}">
     <div class="overlay">
       <h1>{{$booking->hotel->name}}</h1>

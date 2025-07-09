@@ -13,7 +13,7 @@ class BookingController extends Controller
     public function index(Request $request) {
         $booking_removed = $request->booking_removed;
         $booking_created = $request->booking_created;
-        $bookings = auth()->user()->bookings;
+        $bookings = auth()->user()->bookings()->orderBy('check_in_date')->get();
         return view('bookings.index', compact('bookings', 'booking_removed', 'booking_created'));
     }
 
