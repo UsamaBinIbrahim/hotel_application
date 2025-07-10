@@ -33,7 +33,7 @@
       <a href="{{ route('bookings.index') }}" class="button gray full">
         <i data-lucide="arrow-left"></i> Go Back
       </a>
-      @if ($booking->status == 'upcoming')
+      @if ($booking->status === 'upcoming')
         <button type="button" class="button red full" id="delete-btn">
           <i data-lucide="trash-2"></i> Cancel Booking
         </button>
@@ -61,9 +61,14 @@
           url: url,
           method: 'DELETE',
           success: function(response) {
-            response.bookings_left > 0
+            if(response.status === 'success') {
+              response.bookings_left > 0
               ? window.location.href='{{route('bookings.index', ['booking_removed' => true])}}'
               : window.location.href='{{route('profile.index', ['booking_removed' => true])}}';
+            }
+            else {
+              alertError();
+            }
           },
           error: function() {
             alertError();

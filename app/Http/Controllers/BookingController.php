@@ -22,6 +22,11 @@ class BookingController extends Controller
     }
 
     public function destroy(Booking $booking) {
+        if($booking->status !== 'upcoming') {
+            return response()->json([
+                'status' => 'fail',
+            ]);
+        }
         $check_in = Carbon::parse($booking->check_in_date);
         $check_out = Carbon::parse($booking->check_out_date);
         for($date = $check_in->copy(); $date->lt($check_out); $date->addDay()) {
