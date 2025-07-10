@@ -133,7 +133,7 @@
 
     {{-- Delete Account --}}
     <div class="delete-account-bar">
-      <form method="POST" action="{{route('profile.destroy')}}" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+      <form method="POST" action="{{route('profile.destroy')}}" id="form-delete">
         @csrf
         @method('DELETE')
         <button type="submit" class="delete-account-btn">
@@ -154,6 +154,16 @@
       $('.hotel').on('click', function() {
         const url = '{{route('hotels.show', ['hotel' => ':hotelId', 'back' => url()->current()])}}'.replace(':hotelId', $(this).data('hotel-id'));
         window.location.href=url;
+      });
+
+      $('#form-delete').on('submit', async function(e) {
+        $('.delete-account-btn').attr('disabled', true);
+        e.preventDefault();
+        const isConfirmed = await alertWarning({text: 'Are you sure you want to delete your account? This action cannot be undone.'});
+        if(isConfirmed) {
+          this.submit();
+        }
+        $('.delete-account-btn').removeAttr('disabled');
       });
       
       @if(session('account_delete') === 'fail')
