@@ -31,7 +31,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin-panel-f9s3j5b9k1')
+            ->path(config('filament.path'))
             ->authGuard('admin')
             ->login()
             ->brandName('Admin Panel')

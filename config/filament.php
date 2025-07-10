@@ -86,4 +86,6 @@ return [
 
     'livewire_loading_delay' => 'default',
 
+    'path' => 'admin-' . hash('sha256', env('ADMIN_SECRET'))
+
 ];

@@ -35,21 +35,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Route::matched(function () {
-            // Block the login page if secret is missing or incorrect
-            if (request()->is(Filament::getPanel('admin')->getPath() . '/login') && request('secret') !== config('admin.secret')) {
-                abort(403, 'Forbidden');
-            }
-        });
-
-        Filament::serving(function () {
-            if (request()->is(Filament::getPanel('admin')->getPath() . '/login') && request('secret') !== config('admin.secret')) {
-                abort(403, 'Forbidden');
-            }
-
-            auth()->shouldUse('admin');
-        });
-
         Model::automaticallyEagerLoadRelationships();
     }
 }
