@@ -36,7 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->brandName('Admin Panel')
             ->colors([
-                'primary' => Color::Yellow,
+                'primary' => Color::Indigo,
                 'gray' => Color::Slate,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
