@@ -10,9 +10,7 @@ class LogoutResponse implements FilamentLogoutResponseContract, FortifyLogoutRes
 {
     public function toResponse($request): RedirectResponse {
         if ($request->is('admin/logout') || $request->routeIs('filament.*')) {
-            return to_route('filament.admin.auth.login', [
-                'secret' => config('admin.secret'),
-            ]);
+            return to_route('filament.admin.auth.login');
         }
 
         return to_route('homepage.index');
