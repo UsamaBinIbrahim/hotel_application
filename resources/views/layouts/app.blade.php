@@ -15,7 +15,7 @@
       <div class="navbar-logo">
         <i data-lucide="hotel" class="logo-icon"></i>
         <div>
-          <h1>Hotel Booking App</h1>
+          <h1>Hôtelys App</h1>
           <p>Find and book your perfect stay</p>
         </div>
       </div>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-  Hotel Booking | Edit Profile
+  Hôtelys | Edit Profile
 @endsection
 
 @section('style')

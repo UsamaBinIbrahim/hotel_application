@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-  Hotel Booking | Home
+  Hôtelys | Home
 @endsection
 
 @section('style')

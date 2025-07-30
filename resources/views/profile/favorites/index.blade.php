@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-  Hotel Booking | Favorite Hotels
+  Hôtelys | Favorite Hotels
 @endsection
 
 @section('style')

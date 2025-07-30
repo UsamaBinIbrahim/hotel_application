@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-  Hotel Booking | Change Password
+  Hôtelys | Change Password
 @endsection
 
 @section('style')
